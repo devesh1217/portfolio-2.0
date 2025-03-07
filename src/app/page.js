@@ -11,28 +11,23 @@ import { useEffect, useState } from 'react';
 import WelcomePage from '@/components/WelcomePage';
 
 export default function Home() {
-  const [isWelcome, setIsWelcome] = useState(true);
-  useEffect(() => {
-    document.title = 'Home | Portfolio';
-    setTimeout(() => {
-      setIsWelcome(false);
-    }, 5000);
-  }, []);
-  if(isWelcome){
-    return (
-      <WelcomePage />
-    );
-  }
+  const [showMainContent, setShowMainContent] = useState(false);
+
   return (
     <div className="container mx-auto px-4">
-      <Hero />
-      <About />
-      <Skills />
-      <Education />
-      <Experience />
-      <Projects />
-      <Achievements />
-      <Contact />
+      {!showMainContent && <WelcomePage onFinish={() => setShowMainContent(true)} />}
+      {showMainContent && (
+        <>
+          <Hero />
+          <About />
+          <Skills />
+          <Education />
+          <Experience />
+          <Projects />
+          <Achievements />
+          <Contact />
+        </>
+      )}
     </div>
   );
 }
