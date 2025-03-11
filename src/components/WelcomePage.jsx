@@ -46,6 +46,12 @@ const longSanskritText = `
 const WelcomePage = ({ onFinish }) => {
     const [show, setShow] = useState(true);
     const [loadingProgress, setLoadingProgress] = useState(0);
+    const [highlightedSanskritIndex, setHighlightedSanskritIndex] = useState(0);
+    const [highlightedCodeLine, setHighlightedCodeLine] = useState(0);
+
+    // Split Sanskrit text into individual verses
+    const sanskritVerses = longSanskritText.trim().split('\n\n');
+    const codeLines = reactCode.split('\n').filter(line => line.trim() !== '');
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -64,11 +70,23 @@ const WelcomePage = ({ onFinish }) => {
             });
         }, 100);
 
+        // Sanskrit highlight interval
+        const sanskritInterval = setInterval(() => {
+            setHighlightedSanskritIndex(prev => (prev + 1) % sanskritVerses.length);
+        }, 2000);
+
+        // Code highlight interval
+        const codeInterval = setInterval(() => {
+            setHighlightedCodeLine(prev => (prev + 1) % codeLines.length);
+        }, 1000);
+
         return () => {
             clearTimeout(timer);
             clearInterval(interval);
+            clearInterval(sanskritInterval);
+            clearInterval(codeInterval);
         };
-    }, [onFinish]);
+    }, [onFinish, sanskritVerses.length, codeLines.length]);
 
     return (
         show && (
@@ -81,94 +99,195 @@ const WelcomePage = ({ onFinish }) => {
                 <div className="w-full flex justify-center items-center relative overflow-hidden">
                     {/* Animated particles background */}
                     <div className="absolute inset-0 opacity-30">
-                        <motion.div
-                            className="absolute h-2 w-2 rounded-full bg-sky-500"
-                            animate={{
-                                x: ["-10%", "110%"],
-                                y: ["10%", "60%"],
-                                opacity: [0, 1, 0]
-                            }}
-                            transition={{ duration: 5, repeat: Infinity, repeatType: "loop" }}
-                        />
-                        <motion.div
-                            className="absolute h-3 w-3 rounded-full bg-purple-500"
-                            animate={{
-                                x: ["110%", "-10%"],
-                                y: ["70%", "20%"],
-                                opacity: [0, 1, 0]
-                            }}
-                            transition={{ duration: 7, repeat: Infinity, repeatType: "loop", delay: 0.5 }}
-                        />
-                        <motion.div
-                            className="absolute h-2 w-2 rounded-full bg-yellow-500"
-                            animate={{
-                                x: ["50%", "80%"],
-                                y: ["110%", "-10%"],
-                                opacity: [0, 1, 0]
-                            }}
-                            transition={{ duration: 6, repeat: Infinity, repeatType: "loop", delay: 1 }}
-                        />
-                        <motion.div
-                            className="absolute h-4 w-4 rounded-full bg-green-500"
-                            animate={{
-                                x: ["30%", "70%"],
-                                y: ["-10%", "110%"],
-                                opacity: [0, 1, 0]
-                            }}
-                            transition={{ duration: 8, repeat: Infinity, repeatType: "loop", delay: 1.5 }}
-                        />
-                        <motion.div
-                            className="absolute h-3 w-3 rounded-full bg-red-500"
-                            animate={{
-                                x: ["-10%", "110%"],
-                                y: ["90%", "40%"],
-                                opacity: [0, 1, 0]
-                            }}
-                            transition={{ duration: 9, repeat: Infinity, repeatType: "loop", delay: 2 }}
-                        />
+                        {[...Array(20)].map((_, i) => (
+                            <motion.div
+                                key={i}
+                                className={`absolute h-${Math.floor(Math.random() * 3) + 1} w-${Math.floor(Math.random() * 3) + 1} rounded-full`}
+                                style={{
+                                    backgroundColor: `hsl(${Math.floor(Math.random() * 360)}, 70%, 70%)`,
+                                    left: `${Math.floor(Math.random() * 100)}%`,
+                                    top: `${Math.floor(Math.random() * 100)}%`,
+                                }}
+                                animate={{
+                                    x: [
+                                        Math.random() * 50 - 25,
+                                        Math.random() * 50 - 25,
+                                        Math.random() * 50 - 25
+                                    ],
+                                    y: [
+                                        Math.random() * 50 - 25,
+                                        Math.random() * 50 - 25,
+                                        Math.random() * 50 - 25
+                                    ],
+                                    opacity: [0.3, 0.8, 0.3]
+                                }}
+                                transition={{
+                                    duration: Math.random() * 5 + 5,
+                                    repeat: Infinity,
+                                    repeatType: "reverse"
+                                }}
+                            />
+                        ))}
                     </div>
 
-                    {/* Background Code Animation */}
-                    <div className="absolute w-full md:w-1/2 h-1/2 md:h-full text-sm opacity-15 overflow-hidden p-2 md:p-20 top-0 left-0">
-                        <motion.div
-                            animate={{
-                                y: ["0%", "-50%"],
-                            }}
-                            transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
-                        >
-                            <SyntaxHighlighter
-                                language="javascript"
-                                style={dracula}
-                                wrapLines
-                                customStyle={{
-                                    background: "transparent",
-                                    fontSize: "clamp(10px, 1.5vw, 16px)",
-                                    padding: "clamp(8px, 2vw, 20px)",
+                    {/* Code Background - Three Columns for more dynamic appearance */}
+                    <div className="absolute inset-0 overflow-hidden opacity-20">
+                        <div className="absolute w-1/3 h-screen left-0 top-0 overflow-hidden">
+                            <motion.div
+                                animate={{
+                                    y: ["0%", "-50%"],
+                                }}
+                                transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
+                            >
+                                <div className="relative p-4">
+                                    {codeLines.map((line, index) => (
+                                        <div 
+                                            key={index} 
+                                            className={`font-mono text-sm ${index === highlightedCodeLine ? 'text-sky-300 bg-sky-900/30' : 'text-gray-400'} transition-colors duration-300 py-1`}
+                                        >
+                                            {line}
+                                        </div>
+                                    ))}
+                                    {codeLines.map((line, index) => (
+                                        <div 
+                                            key={`repeat-${index}`} 
+                                            className={`font-mono text-sm ${(index + codeLines.length) % codeLines.length === highlightedCodeLine ? 'text-sky-300 bg-sky-900/30' : 'text-gray-400'} transition-colors duration-300 py-1`}
+                                        >
+                                            {line}
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        </div>
+
+                        <div className="absolute w-1/3 h-screen left-1/3 top-0 overflow-hidden">
+                            <motion.div
+                                animate={{
+                                    y: ["-30%", "0%"],
+                                }}
+                                transition={{ repeat: Infinity, duration: 35, ease: "linear" }}
+                            >
+                                <div className="relative p-4">
+                                    {codeLines.map((line, index) => (
+                                        <div 
+                                            key={`col2-${index}`} 
+                                            className={`font-mono text-sm ${(index + 3) % codeLines.length === highlightedCodeLine ? 'text-purple-300 bg-purple-900/30' : 'text-gray-400'} transition-colors duration-300 py-1`}
+                                        >
+                                            {line}
+                                        </div>
+                                    ))}
+                                    {codeLines.map((line, index) => (
+                                        <div 
+                                            key={`col2-repeat-${index}`} 
+                                            className={`font-mono text-sm ${(index + codeLines.length + 3) % codeLines.length === highlightedCodeLine ? 'text-purple-300 bg-purple-900/30' : 'text-gray-400'} transition-colors duration-300 py-1`}
+                                        >
+                                            {line}
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        </div>
+
+                        <div className="absolute w-1/3 h-screen left-2/3 top-0 overflow-hidden">
+                            <motion.div
+                                animate={{
+                                    y: ["-10%", "-60%"],
+                                }}
+                                transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
+                            >
+                                <div className="relative p-4">
+                                    {codeLines.map((line, index) => (
+                                        <div 
+                                            key={`col3-${index}`} 
+                                            className={`font-mono text-sm ${(index + 6) % codeLines.length === highlightedCodeLine ? 'text-green-300 bg-green-900/30' : 'text-gray-400'} transition-colors duration-300 py-1`}
+                                        >
+                                            {line}
+                                        </div>
+                                    ))}
+                                    {codeLines.map((line, index) => (
+                                        <div 
+                                            key={`col3-repeat-${index}`} 
+                                            className={`font-mono text-sm ${(index + codeLines.length + 6) % codeLines.length === highlightedCodeLine ? 'text-green-300 bg-green-900/30' : 'text-gray-400'} transition-colors duration-300 py-1`}
+                                        >
+                                            {line}
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        </div>
+                    </div>
+
+                    {/* Sanskrit Text Floating Background */}
+                    <div className="absolute inset-0 overflow-hidden">
+                        {sanskritVerses.map((verse, index) => (
+                            <motion.div
+                                key={index}
+                                className={`absolute font-serif text-lg md:text-2xl transition-all duration-1000 ${
+                                    index === highlightedSanskritIndex 
+                                        ? 'text-yellow-400/80 scale-110' 
+                                        : 'text-yellow-500/10 scale-100'
+                                }`}
+                                style={{
+                                    left: `${10 + (index % 3) * 30}%`,
+                                    top: `${15 + (index % 4) * 20}%`,
+                                    transform: `rotate(${(index % 2) * 3 - 1.5}deg)`,
+                                }}
+                                animate={{
+                                    x: [0, 10, -10, 0],
+                                    y: [0, -10, 10, 0],
+                                }}
+                                transition={{
+                                    duration: 10 + index,
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
                                 }}
                             >
-                                {reactCode.repeat(10)}
-                            </SyntaxHighlighter>
-                        </motion.div>
-                    </div>
-
-                    {/* Sanskrit Text Background */}
-                    <div className="absolute w-full h-1/2 md:h-full md:w-1/2 text-yellow-500/20 font-[sanskrit] leading-relaxed tracking-wider overflow-hidden bottom-0 md:right-0 md:top-0 p-2 md:p-20">
-                        <motion.div
-                            animate={{
-                                y: ["0%", "-100%"],
-                            }}
-                            transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
-                        >
-                            <pre className="font-[sanskrit] text-center text-base sm:text-lg md:text-2xl lg:text-4xl">
-                                {longSanskritText.repeat(10)}
-                            </pre>
-                        </motion.div>
+                                {verse}
+                            </motion.div>
+                        ))}
                     </div>
 
                     {/* Circular glow effect */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-96 h-96 rounded-full bg-sky-500/10 filter blur-3xl"></div>
-                        <div className="absolute w-80 h-80 rounded-full bg-purple-500/10 filter blur-3xl"></div>
+                        <motion.div 
+                            className="w-96 h-96 rounded-full bg-sky-500/10 filter blur-3xl"
+                            animate={{ scale: [1, 1.1, 1] }}
+                            transition={{ duration: 5, repeat: Infinity }}
+                        ></motion.div>
+                        <motion.div 
+                            className="absolute w-80 h-80 rounded-full bg-purple-500/10 filter blur-3xl"
+                            animate={{ scale: [1.1, 1, 1.1] }}
+                            transition={{ duration: 5, repeat: Infinity }}
+                        ></motion.div>
+                    </div>
+
+                    {/* Binary data streams - Matrix style */}
+                    <div className="absolute inset-0 overflow-hidden">
+                        {[...Array(5)].map((_, i) => (
+                            <motion.div
+                                key={`stream-${i}`}
+                                className="absolute w-6 overflow-hidden text-center"
+                                style={{
+                                    left: `${20 * i}%`,
+                                    top: "-20%",
+                                    fontSize: "10px",
+                                    color: "rgba(80, 200, 120, 0.3)",
+                                    fontFamily: "monospace"
+                                }}
+                                animate={{ y: ["0%", "120%"] }}
+                                transition={{
+                                    duration: 8 + i * 2,
+                                    repeat: Infinity,
+                                    ease: "linear"
+                                }}
+                            >
+                                {[...Array(30)].map((_, j) => (
+                                    <div key={j}>
+                                        {Math.random() > 0.5 ? "1" : "0"}
+                                    </div>
+                                ))}
+                            </motion.div>
+                        ))}
                     </div>
 
                     {/* Centered Content */}
@@ -178,7 +297,7 @@ const WelcomePage = ({ onFinish }) => {
                             initial={{ scale: 0 }}
                             animate={{ scale: 1, rotate: 360 }}
                             transition={{ duration: 1, type: "spring" }}
-                            className="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-sky-400 to-purple-500 rounded-xl flex items-center justify-center mb-4"
+                            className="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-sky-400 to-purple-500 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-purple-500/30"
                         >
                             <span className="text-white text-4xl md:text-5xl font-bold">D</span>
                         </motion.div>
@@ -188,7 +307,7 @@ const WelcomePage = ({ onFinish }) => {
                             initial={{ y: 20, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ delay: 0.5 }}
-                            className="text-sky-300 font-mono text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold bg-black/50 p-4 md:p-6 rounded-xl shadow-2xl backdrop-blur-md border border-sky-500/20"
+                            className="text-sky-300 font-mono text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold bg-black/50 p-6 rounded-xl shadow-2xl backdrop-blur-md border border-sky-500/20"
                         >
                             <ReactTyped
                                 strings={[
@@ -209,14 +328,16 @@ const WelcomePage = ({ onFinish }) => {
                             transition={{ delay: 0.8 }}
                             className="w-full max-w-md mx-auto mt-8"
                         >
-                            <div className="h-1 w-full bg-gray-600 rounded-full overflow-hidden">
+                            <div className="h-2 w-full bg-gray-800 rounded-full overflow-hidden shadow-inner">
                                 <motion.div 
-                                    className="h-full bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 rounded-full"
+                                    className="h-full bg-gradient-to-r from-sky-400 via-purple-500 to-sky-400 rounded-full relative"
                                     style={{ width: `${loadingProgress}%` }}
                                     initial={{ width: "0%" }}
                                     animate={{ width: "100%" }}
                                     transition={{ duration: 10, ease: "linear" }}
-                                />
+                                >
+                                    <div className="absolute inset-0 bg-white/20 bg-[length:10px_10px] bg-[0_0] animate-[gradient_1s_linear_infinite] bg-[repeating-linear-gradient(45deg,transparent,transparent_5px,rgba(255,255,255,0.1)_5px,rgba(255,255,255,0.1)_10px)]"></div>
+                                </motion.div>
                             </div>
                             <div className="flex justify-between mt-2 text-xs text-gray-400">
                                 <span>Loading experience</span>
@@ -233,9 +354,10 @@ const WelcomePage = ({ onFinish }) => {
                                 setShow(false);
                                 onFinish();
                             }}
-                            className="text-gray-400 text-sm hover:text-white transition-colors duration-300 mt-4"
+                            className="text-gray-400 text-sm hover:text-white transition-colors duration-300 mt-4 flex items-center gap-1 hover:gap-2 px-3 py-1 rounded-full hover:bg-white/5"
                         >
-                            Skip intro →
+                            Skip intro 
+                            <span className="transition-all duration-300">→</span>
                         </motion.button>
                     </div>
                 </div>
