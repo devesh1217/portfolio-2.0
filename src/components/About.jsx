@@ -1,6 +1,6 @@
 export default function About() {
   return (
-    <section id="about" className="py-24 bg-white dark:bg-gray-900">
+    <section id="about" className="py-24">
       <div className="container mx-auto px-4">
         <h2 className="section-title text-center mb-20">About Me</h2>
         
@@ -24,13 +24,13 @@ export default function About() {
             {['Innovator', 'Problem Solver', 'Tech Explorer', 'Leader'].map((title, index) => (
               <div 
                 key={title}
-                className="glass-effect rounded-2xl p-8 text-center group hover:shadow-lg transition-all duration-300 animate-slide-up"
+                className="backdrop-blur-sm bg-white/10 dark:bg-gray-900/20 rounded-2xl p-8 text-center group hover:shadow-lg transition-all duration-300 animate-slide-up border border-white/20 dark:border-gray-700/30"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <h4 className="font-bold text-xl mb-3 group-hover:text-primary transition-colors">
+                <h4 className="font-bold text-xl mb-3 text-gray-800 dark:text-gray-100 group-hover:text-primary transition-colors">
                   {title}
                 </h4>
-                <p className="text-gray-700 dark:text-gray-300">Creating solutions that address real-world challenges</p>
+                <p className="text-gray-600 dark:text-gray-300">Creating solutions that address real-world challenges</p>
               </div>
             ))}
           </div>
