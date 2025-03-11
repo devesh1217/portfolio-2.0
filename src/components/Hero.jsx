@@ -8,7 +8,7 @@ export default function Hero() {
       <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
         <div className="order-2 md:order-1">
           <h1 className="font-playfair text-4xl md:text-6xl font-bold mb-4">
-            <span className="text-gradient bg-gradient-to-r from-teal-600 to-blue-600 dark:from-teal-400 dark:to-blue-400">
+            <span className="text-gradient bg-gradient-to-r from-teal-700 to-blue-700 dark:from-teal-500 dark:to-blue-500">
               Hello, I'm
             </span>
           </h1>
@@ -21,13 +21,13 @@ export default function Hero() {
           <div className="flex flex-wrap gap-4">
             <Link 
               href="#contact"
-              className="btn-primary backdrop-blur-sm bg-teal-600/90 hover:bg-teal-600 dark:bg-teal-500/90 dark:hover:bg-teal-500"
+              className="btn-primary backdrop-blur-sm bg-teal-700/80 hover:bg-teal-700 dark:bg-teal-600/80 dark:hover:bg-teal-600"
             >
               Get in Touch
             </Link>
             <Link 
               href="#projects"
-              className="btn-secondary backdrop-blur-sm bg-white/10 dark:bg-gray-900/20 border border-white/20 dark:border-gray-700/30"
+              className="btn-secondary backdrop-blur-sm bg-white/5 dark:bg-gray-800/10 border border-white/10 dark:border-gray-700/20"
             >
               View My Work
             </Link>

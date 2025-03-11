@@ -24,7 +24,7 @@ export default function About() {
             {['Innovator', 'Problem Solver', 'Tech Explorer', 'Leader'].map((title, index) => (
               <div 
                 key={title}
-                className="backdrop-blur-sm bg-white/10 dark:bg-gray-900/20 rounded-2xl p-8 text-center group hover:shadow-lg transition-all duration-300 animate-slide-up border border-white/20 dark:border-gray-700/30"
+                className="backdrop-blur-sm bg-white/5 dark:bg-gray-800/10 rounded-2xl p-8 text-center group hover:shadow-lg transition-all duration-300 animate-slide-up border border-white/10 dark:border-gray-700/20"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <h4 className="font-bold text-xl mb-3 text-gray-800 dark:text-gray-100 group-hover:text-primary transition-colors">
