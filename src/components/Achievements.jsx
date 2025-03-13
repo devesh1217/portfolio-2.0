@@ -1,7 +1,10 @@
-import { Trophy, Link as LinkIcon } from 'lucide-react';
+import { Trophy, Link as LinkIcon, X } from 'lucide-react';
 import Image from 'next/image';
+import { useState } from 'react';
 
 export default function Achievements() {
+  const [selectedAchievement, setSelectedAchievement] = useState(null);
+
   const achievements = [
     {
       title: "Smart India Hackathon 2024 Winner",
@@ -47,48 +50,135 @@ export default function Achievements() {
     }
   ];
 
+  // Modal Component
+  const AchievementModal = ({ achievement, onClose }) => (
+    <div 
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div 
+        className="relative w-full max-w-3xl glass-effect rounded-2xl overflow-hidden animate-slide-up"
+        onClick={e => e.stopPropagation()}
+      >
+        <button 
+          onClick={onClose}
+          className="absolute right-6 top-6 p-2.5 rounded-full 
+            bg-gray-100/90 dark:bg-gray-800/90 backdrop-blur-sm
+            hover:bg-primary/20 dark:hover:bg-primary/20
+            text-gray-700 dark:text-gray-300 hover:text-primary
+            transition-all duration-300 z-10"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        <div className="p-8">
+          <div className="flex items-start justify-between gap-4 mb-6">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{achievement.title}</h3>
+            <div className="text-blue-500 dark:text-blue-400 flex items-center gap-2">
+              <Trophy className="h-5 w-5" />
+              <span className="font-medium">{achievement.organization}</span>
+            </div>
+          </div>
+
+          <div className="relative h-[300px] rounded-xl overflow-hidden mb-6">
+            <Image
+              src={achievement.image}
+              alt={achievement.title}
+              fill
+              className="object-cover"
+            />
+          </div>
+
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            {achievement.description}
+          </p>
+
+          {achievement.certificateLink && (
+            <a 
+              href={achievement.certificateLink}
+              className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-lg
+                bg-primary/10 dark:bg-primary/5 text-primary
+                hover:bg-primary hover:text-white
+                transition-all duration-300 text-sm font-medium group"
+            >
+              <Trophy className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
+              <span>View Certificate</span>
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+
   return (
-    <section id="achievements" className="py-20">
+    <section id="achievements" className="py-16 md:py-24">
       <div className="container mx-auto px-4">
         <h2 className="section-title">Achievements</h2>
         
-        <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {achievements.map((achievement, index) => (
             <div 
               key={index}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+              className="glass-effect rounded-xl overflow-hidden hover:-translate-y-1 transition-all duration-300 animate-slide-up"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="relative h-48">
+              <div className="relative h-48 group">
                 <Image
                   src={achievement.image}
                   alt={achievement.title}
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 p-4">
-                  <h3 className="text-white font-bold text-lg">{achievement.title}</h3>
-                  <p className="text-blue-300 text-sm">{achievement.organization}</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-90"></div>
+                <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                  <h3 className="text-white font-bold text-lg mb-1 line-clamp-2">{achievement.title}</h3>
+                  <p className="text-blue-300 text-sm flex items-center gap-1">
+                    <Trophy className="h-4 w-4" />
+                    {achievement.organization}
+                  </p>
                 </div>
               </div>
               
-              <div className="p-4">
-                <p className="text-gray-700 dark:text-gray-300 text-sm">{achievement.description}</p>
+              <div className="p-6">
+                <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
+                  {achievement.description}
+                </p>
                 
-                {achievement.certificateLink && (
-                  <a 
-                    href={achievement.certificateLink}
-                    className="mt-4 inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                <div className="mt-4 flex items-center justify-between">
+                  <button
+                    onClick={() => setSelectedAchievement(achievement)}
+                    className="text-primary hover:text-primary/80 font-medium text-sm flex items-center gap-1 group hover:cursor-pointer"
                   >
-                    <Trophy className="h-4 w-4 mr-1" />
-                    <span>View Certificate</span>
-                  </a>
-                )}
+                    Show More
+                    <span className="transform transition-transform group-hover:translate-x-1">→</span>
+                  </button>
+
+                  {achievement.certificateLink && (
+                    <a 
+                      href={achievement.certificateLink}
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg
+                        bg-primary/10 dark:bg-primary/5 text-primary
+                        hover:bg-primary hover:text-white
+                        transition-all duration-300 text-sm font-medium group"
+                    >
+                      <Trophy className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
+                      <span>Certificate</span>
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Modal */}
+      {selectedAchievement && (
+        <AchievementModal 
+          achievement={selectedAchievement} 
+          onClose={() => setSelectedAchievement(null)} 
+        />
+      )}
     </section>
   );
 }
