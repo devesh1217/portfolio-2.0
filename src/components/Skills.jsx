@@ -26,8 +26,7 @@ import { DiJava } from 'react-icons/di';
 import { TbBrandCpp, TbBrandVscode } from 'react-icons/tb'; // Add TbBrandVscode
 
 export default function Skills() {
-  const [activeTab, setActiveTab] = useState("Programming Languages");
-  const [hoveredTab, setHoveredTab] = useState(null);
+  const [activeCategory, setActiveCategory] = useState(null);
 
   const skillCategories = [
     {
@@ -87,65 +86,66 @@ export default function Skills() {
   ];
 
   return (
-    <section id="skills" className="py-24 bg-white dark:bg-gray-900">
+    <section id="skills" className="py-16 md:py-24 relative">
       <div className="container mx-auto px-4">
-        <h2 className="section-title text-center mb-20">My Skills</h2>
+        <h2 className="section-title text-center mb-16 md:mb-20">My Skills</h2>
         
-        {/* Tab Navigation */}
-        <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-16 relative">
-          <div className="w-full overflow-x-auto pb-4 mb-4 hide-scrollbar">
-            <div className="flex gap-5 md:gap-4 justify-center md:justify-center min-w-max px-4">
-              {skillCategories.map((category) => (
-                <button
-                  key={category.title}
-                  onClick={() => setActiveTab(category.title)}
-                  onMouseEnter={() => setHoveredTab(category.title)}
-                  onMouseLeave={() => setHoveredTab(null)}
-                  className={`
-                    px-6 py-3 rounded-xl font-medium transition-all duration-300 
-                    flex justify-center items-center tab-indicator w-fit
-                    ${activeTab === category.title ? 
-                      'bg-primary/10 text-primary shadow-lg active' : 
-                      'bg-primary/5 hover:bg-primary/10 text-foreground dark:text-gray-300'}
-                    ${hoveredTab === category.title ? 'scale-105' : 'scale-100'}
-                  `}
-                >
-                  <span className={`w-7 h-7 transition-transform duration-300 mr-2
-                    ${activeTab === category.title ? 'scale-110' : 'scale-100'}
-                    ${hoveredTab === category.title ? 'rotate-12' : 'rotate-0'}
-                  `}>
-                    {category.icon}
-                  </span>
-                  <span className="whitespace-nowrap">{category.title}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Active Tab Content */}
-        {skillCategories.map((category) => (
-          <div
-            key={category.title}
-            className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 tab-slide-enter
-              ${activeTab === category.title ? 'block' : 'hidden'}`}
-          >
-            {category.skills.map((skill, index) => (
-              <div
-                key={index}
-                className="glass-effect rounded-xl p-6 flex flex-col items-center justify-center gap-4 
-                  hover:scale-105 transition-all duration-300 group cursor-pointer"
+        <div className="space-y-12 md:space-y-16">
+          {skillCategories.map((category, categoryIndex) => (
+            <div 
+              key={category.title}
+              className="animate-slide-up"
+              style={{ animationDelay: `${categoryIndex * 0.1}s` }}
+            >
+              <div 
+                className="flex items-center gap-3 mb-6 cursor-pointer group"
+                onClick={() => setActiveCategory(activeCategory === category.title ? null : category.title)}
               >
-                <span className="text-4xl text-primary transition-transform duration-300 group-hover:scale-110">
-                  {skill.icon}
-                </span>
-                <span className="font-medium text-center group-hover:text-primary transition-colors">
-                  {skill.name}
-                </span>
+                <div className={`
+                  p-3 rounded-xl transition-all duration-300
+                  ${activeCategory === category.title ? 
+                    'bg-primary/10 text-primary scale-110' : 
+                    'bg-primary/5 text-gray-700 dark:text-gray-300 group-hover:bg-primary/10 group-hover:text-primary'
+                  }
+                `}>
+                  {React.cloneElement(category.icon, {
+                    className: 'h-6 w-6 md:h-7 md:w-7'
+                  })}
+                </div>
+                <h3 className={`
+                  text-lg md:text-xl font-medium transition-colors
+                  ${activeCategory === category.title ? 
+                    'text-primary' : 
+                    'text-gray-800 dark:text-gray-200 group-hover:text-primary'
+                  }
+                `}>
+                  {category.title}
+                </h3>
               </div>
-            ))}
-          </div>
-        ))}
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
+                {category.skills.map((skill, index) => (
+                  <div
+                    key={index}
+                    className={`
+                      glass-effect rounded-xl p-6 flex flex-col items-center justify-center gap-4
+                      transition-all duration-300
+                      ${activeCategory === category.title ? 'opacity-100 translate-y-0' : 'opacity-75 hover:opacity-100'}
+                      hover:shadow-xl hover:-translate-y-1
+                    `}
+                  >
+                    <span className="text-3xl md:text-4xl text-primary transition-transform duration-300 hover:scale-110">
+                      {skill.icon}
+                    </span>
+                    <span className="font-medium text-center text-gray-800 dark:text-gray-200 text-sm md:text-base">
+                      {skill.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
