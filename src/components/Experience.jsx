@@ -35,14 +35,14 @@ export default function Experience() {
           <X className="w-5 h-5" />
         </button>
 
+        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">{exp.title}</h3>
+        
         <div className="flex items-center gap-3 mb-4">
           <div className="p-2 rounded-lg bg-primary/10 dark:bg-primary/5">
             <Briefcase className="h-5 w-5 text-primary" />
           </div>
-          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">{exp.title}</h3>
+          <p className="text-primary dark:text-primary/90 font-medium">{exp.organization}</p>
         </div>
-        
-        <p className="text-primary dark:text-primary/90 font-medium mb-3">{exp.organization}</p>
         
         <div className="flex items-center text-gray-600 dark:text-gray-400 mb-4 bg-gray-100/50 dark:bg-gray-800/50 rounded-lg px-3 py-1.5 w-fit">
           <Calendar className="h-4 w-4 mr-2 text-primary" />

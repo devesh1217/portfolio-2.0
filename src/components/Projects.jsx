@@ -110,36 +110,21 @@ export default function Projects() {
       >
         <button 
           onClick={onClose}
-          className="absolute right-6 md:right-8 top-6 md:top-8 p-2.5 rounded-full 
+          className="absolute right-6 top-6 p-2.5 rounded-full 
             bg-gray-100/90 dark:bg-gray-800/90 backdrop-blur-sm
             hover:bg-primary/20 dark:hover:bg-primary/20
             text-gray-700 dark:text-gray-300 hover:text-primary
-            shadow-lg hover:shadow-primary/25
-            transition-all duration-300 z-10
-            border border-gray-200/50 dark:border-gray-700/50"
+            transition-all duration-300 z-10"
         >
           <X className="w-5 h-5" />
         </button>
 
         <div className="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/50 scrollbar-track-transparent hover:scrollbar-thumb-muted-foreground/70">
           <div className="p-6 md:p-8">
-            {/* Header - Updated styling */}
-            <div className="flex justify-between items-start gap-4 mb-6 pr-12">
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">{project.title}</h3>
-              <span className="text-sm text-primary whitespace-nowrap">{project.date}</span>
-            </div>
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">{project.title}</h3>
+            <span className="text-sm text-primary block mb-6">{project.date}</span>
 
-            {/* Image */}
-            <div className="relative h-[300px] md:h-[400px] mb-8 rounded-xl overflow-hidden">
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                className="object-cover"
-              />
-            </div>
-
-            {/* Description */}
+            {/* Rest of the modal content remains same... */}
             <div className="space-y-6 mb-8">
               {project.description.map((para, i) => (
                 <p key={i} className="text-gray-700 dark:text-gray-300 leading-relaxed text-base md:text-lg">

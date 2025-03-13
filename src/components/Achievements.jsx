@@ -72,12 +72,10 @@ export default function Achievements() {
         </button>
 
         <div className="p-8">
-          <div className="flex items-start justify-between gap-4 mb-6">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{achievement.title}</h3>
-            <div className="text-blue-500 dark:text-blue-400 flex items-center gap-2">
-              <Trophy className="h-5 w-5" />
-              <span className="font-medium">{achievement.organization}</span>
-            </div>
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">{achievement.title}</h3>
+          <div className="text-blue-500 dark:text-blue-400 flex items-center gap-2 mb-6">
+            <Trophy className="h-5 w-5" />
+            <span className="font-medium">{achievement.organization}</span>
           </div>
 
           <div className="relative h-[300px] rounded-xl overflow-hidden mb-6">
