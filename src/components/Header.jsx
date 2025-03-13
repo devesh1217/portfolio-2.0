@@ -8,108 +8,123 @@ import { Menu, X } from 'lucide-react';
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+
+  const firstName = "Devesh";
+  const lastName = "Mehta";
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
+      
+      // Update active section based on scroll position
+      const sections = document.querySelectorAll('section[id]');
+      const scrollPosition = window.scrollY + 100;
+
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+          setActiveSection(section.getAttribute('id'));
+        }
+      });
     };
+    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  return (
-    <header
-      className={`sticky top-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? 'bg-white/90 backdrop-blur-md dark:bg-gray-900/90 shadow-lg'
-          : 'bg-transparent'
-      }`}
+  const handleLinkClick = (e, sectionId) => {
+    e.preventDefault();
+    const element = document.getElementById(sectionId);
+    const offset = 80; // Height of fixed header
+    const bodyRect = document.body.getBoundingClientRect().top;
+    const elementRect = element.getBoundingClientRect().top;
+    const elementPosition = elementRect - bodyRect;
+    const offsetPosition = elementPosition - offset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+    
+    setIsMenuOpen(false);
+  };
+
+  const NavLink = ({ item, mobile = false }) => (
+    <Link
+      key={item}
+      href={`#${item.toLowerCase()}`}
+      onClick={(e) => handleLinkClick(e, item.toLowerCase())}
+      className={`
+        relative group transition-all duration-300 py-1
+        ${mobile ? 'text-lg' : ''} 
+        ${activeSection === item.toLowerCase() 
+          ? 'text-primary font-medium' 
+          : 'text-gray-700 dark:text-gray-300 hover:text-primary'}
+      `}
     >
-      <div className="container mx-auto px-6">
-        <div className="flex h-20 items-center justify-between">
-          <Link href="/" className="font-playfair text-3xl font-bold hover:text-blue-600 transition-colors">
-            Portfolio
+      {item}
+      <span className={`
+        absolute left-0 -bottom-0.5 w-full h-0.5
+        bg-gradient-to-r from-blue-600 to-blue-400
+        origin-right scale-x-0 transition-transform duration-300 ease-out
+        group-hover:origin-left group-hover:scale-x-100
+        ${activeSection === item.toLowerCase() ? '!origin-left !scale-x-100' : ''}
+      `} />
+    </Link>
+  );
+
+  return (
+    <header className={`sticky top-0 z-50 transition-all duration-500 ${
+      isScrolled ? 'glass-effect shadow-lg' : 'bg-transparent'
+    }`}>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 sm:h-20 items-center justify-between">
+          <Link href="/" className="group flex items-center gap-0.5 hover:gap-1.5 transition-all duration-300">
+            <div className="flex items-baseline">
+              <span className="font-playfair text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+                Dev
+              </span>
+              <span className="font-code text-xl sm:text-2xl text-gray-600 dark:text-gray-400">
+                esh
+              </span>
+            </div>
+            <div className="flex items-baseline">
+              <span className="font-playfair text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
+                Me
+              </span>
+              <span className="font-code text-xl sm:text-2xl text-gray-600 dark:text-gray-400">
+                hta
+              </span>
+            </div>
           </Link>
 
-          {/* Mobile menu button */}
-          <button
-            className="block md:hidden p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          <div className="flex items-center gap-2 sm:gap-4">
+            {/* <ThemeToggle className="mr-2" /> */}
+            <button
+              className="block md:hidden p-2 rounded-lg 
+                bg-gray-400/10 text-gray-700 dark:text-gray-300
+                hover:bg-primary/20 hover:text-primary
+                transition-all duration-300"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6" />}
+            </button>
+          </div>
 
-          {/* Desktop navigation */}
-          <nav className="hidden md:flex md:items-center md:space-x-8">
-            {['About', 'Skills', 'Education', 'Experience', 'Projects', 'Achievements', 'Contact'].map((item) => (
-              <Link
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="relative hover:text-blue-600 transition-colors after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-blue-600 after:transition-transform hover:after:scale-x-100"
-              >
-                {item}
-              </Link>
-            ))}
-            <ThemeToggle />
+          <nav className="hidden md:flex md:items-center md:space-x-4 lg:space-x-8">
+            {['About', 'Skills', 'Education', 'Experience', 'Projects', 'Achievements', 'Contact']
+              .map((item) => <NavLink key={item} item={item} />)}
           </nav>
         </div>
 
-        {/* Mobile navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 bg-white dark:bg-gray-900 shadow-xl rounded-xl absolute top-20 right-4 left-4 border border-gray-200 dark:border-gray-700 transition-all duration-200">
-            <nav className="flex flex-col space-y-4 px-6">
-              <Link
-                href="#about"
-                className="hover:text-blue-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About
-              </Link>
-              <Link
-                href="#skills"
-                className="hover:text-blue-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Skills
-              </Link>
-              <Link
-                href="#education"
-                className="hover:text-blue-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Education
-              </Link>
-              <Link
-                href="#experience"
-                className="hover:text-blue-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Experience
-              </Link>
-              <Link
-                href="#projects"
-                className="hover:text-blue-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Projects
-              </Link>
-              <Link
-                href="#achievements"
-                className="hover:text-blue-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Achievements
-              </Link>
-              <Link
-                href="#contact"
-                className="hover:text-blue-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Contact
-              </Link>
-              <div className="pt-2">
-                <ThemeToggle />
-              </div>
+          <div className="md:hidden glass-effect rounded-xl absolute top-16 sm:top-20 right-4 left-4 
+            animate-slide-up shadow-lg border border-gray-200/20 dark:border-gray-700/20">
+            <nav className="flex flex-col space-y-4 p-4 sm:p-6">
+              {['About', 'Skills', 'Education', 'Experience', 'Projects', 'Achievements', 'Contact']
+                .map((item) => <NavLink key={item} item={item} mobile />)}
             </nav>
           </div>
         )}
