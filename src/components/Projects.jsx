@@ -1,7 +1,29 @@
-import { Github, ExternalLink, Code } from 'lucide-react';
+import { Github, ExternalLink, Code, X } from 'lucide-react';
+import { 
+  SiJavascript, SiReact, SiNodedotjs, SiMongodb, SiExpress, 
+  SiNextdotjs, SiTailwindcss, SiPython, SiFlask, SiGooglecloud,
+  SiJsonwebtokens, SiRedux, SiPytorch, SiNumpy, SiPandas
+} from 'react-icons/si';
 import Image from 'next/image';
+import { useState } from 'react';
 
 export default function Projects() {
+  const techStackIcons = {
+    "MERN Stack": <SiMongodb className="text-gray-700 dark:text-gray-300" />,
+    "JWT": <SiJsonwebtokens className="text-gray-700 dark:text-gray-300" />,
+    "Google Cloud API": <SiGooglecloud className="text-gray-700 dark:text-gray-300" />,
+    "Tailwind CSS": <SiTailwindcss className="text-gray-700 dark:text-gray-300" />,
+    "Next.JS": <SiNextdotjs className="text-gray-700 dark:text-gray-300" />,
+    "MongoDB": <SiMongodb className="text-gray-700 dark:text-gray-300" />,
+    "PyTorch": <SiPytorch className="text-gray-700 dark:text-gray-300" />,
+    "Flask": <SiFlask className="text-gray-700 dark:text-gray-300" />,
+    "NumPy": <SiNumpy className="text-gray-700 dark:text-gray-300" />,
+    "Pandas": <SiPandas className="text-gray-700 dark:text-gray-300" />,
+    "Redux Toolkit": <SiRedux className="text-gray-700 dark:text-gray-300" />
+  };
+
+  const [selectedProject, setSelectedProject] = useState(null);
+  
   const projects = [
     {
       title: "Web Portal of NEXUS: Official Departmental Cell of DoCSE and DoAI",
@@ -50,68 +72,191 @@ export default function Projects() {
     }
   ];
 
+  const LinkButton = ({ href, icon: Icon, children, primary = false }) => (
+    <a
+      href={href}
+      className={`
+        group flex items-center gap-2 px-4 py-2.5 rounded-lg
+        relative overflow-hidden
+        ${primary ? 
+          'bg-primary/10 text-primary hover:text-white dark:bg-primary/5' : 
+          'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary'
+        }
+        transition-all duration-300
+      `}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <div className={`
+        absolute inset-0 opacity-0 group-hover:opacity-100
+        ${primary ? 'bg-primary' : 'bg-primary/5 dark:bg-primary/5'}
+        transition-all duration-300 transform group-hover:scale-100 scale-90
+        rounded-lg
+      `} />
+      <Icon className="h-5 w-5 relative z-10 transition-transform duration-300 group-hover:scale-110" />
+      <span className="font-medium relative z-10">{children}</span>
+    </a>
+  );
+
+  // Modal Component
+  const ProjectModal = ({ project, onClose }) => (
+    <div 
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div 
+        className="relative w-full max-w-4xl h-[90vh] glass-effect rounded-2xl overflow-hidden animate-slide-up"
+        onClick={e => e.stopPropagation()}
+      >
+        <button 
+          onClick={onClose}
+          className="absolute right-6 md:right-8 top-6 md:top-8 p-2.5 rounded-full 
+            bg-gray-100/90 dark:bg-gray-800/90 backdrop-blur-sm
+            hover:bg-primary/20 dark:hover:bg-primary/20
+            text-gray-700 dark:text-gray-300 hover:text-primary
+            shadow-lg hover:shadow-primary/25
+            transition-all duration-300 z-10
+            border border-gray-200/50 dark:border-gray-700/50"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        <div className="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/50 scrollbar-track-transparent hover:scrollbar-thumb-muted-foreground/70">
+          <div className="p-6 md:p-8">
+            {/* Header - Updated styling */}
+            <div className="flex justify-between items-start gap-4 mb-6 pr-12">
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100">{project.title}</h3>
+              <span className="text-sm text-primary whitespace-nowrap">{project.date}</span>
+            </div>
+
+            {/* Image */}
+            <div className="relative h-[300px] md:h-[400px] mb-8 rounded-xl overflow-hidden">
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover"
+              />
+            </div>
+
+            {/* Description */}
+            <div className="space-y-6 mb-8">
+              {project.description.map((para, i) => (
+                <p key={i} className="text-gray-700 dark:text-gray-300 leading-relaxed text-base md:text-lg">
+                  {para}
+                </p>
+              ))}
+            </div>
+
+            {/* Tech Stack */}
+            <div className="mb-8">
+              <h4 className="font-medium text-primary flex items-center mb-3">
+                <Code className="h-4 w-4 mr-2" />
+                Tech Stack
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {project.techStack.map((tech, i) => (
+                  <span 
+                    key={i} 
+                    className="px-3 py-1.5 rounded-full text-xs font-medium
+                      bg-gray-600/30 text-gray-700 dark:text-gray-300 border border-gray-600/20
+                      hover:bg-primary/20 hover:text-primary
+                      transform hover:scale-105
+                      shadow-sm hover:shadow-md hover:shadow-primary/25
+                      transition-all duration-300
+                      flex items-center gap-1.5"
+                  >
+                    {techStackIcons[tech] && (
+                      <span className="text-base">{techStackIcons[tech]}</span>
+                    )}
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Links */}
+            <div className="flex gap-4">
+              <LinkButton href={project.links.github} icon={Github}>Code</LinkButton>
+              <LinkButton href={project.links.live} icon={ExternalLink} primary>Live Demo</LinkButton>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
-    <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section id="projects" className="py-16 md:py-24">
       <div className="container mx-auto px-4">
-        <h2 className="section-title">Projects</h2>
+        <h2 className="section-title text-center mb-16">Projects</h2>
         
         <div className="mt-12 space-y-16">
           {projects.map((project, index) => (
-            <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+            <div 
+              key={index} 
+              className="glass-effect rounded-xl overflow-hidden animate-slide-up"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
               <div className="grid md:grid-cols-2 gap-0">
-                <div className="relative h-64 md:h-full">
+                <div className="relative h-64 md:h-96 group overflow-hidden">
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 
                 <div className="p-6 md:p-8">
-                  <div className="flex justify-between items-start">
-                    <h3 className="text-2xl font-bold">{project.title}</h3>
-                    <span className="text-sm text-gray-600 dark:text-gray-400">{project.date}</span>
+                  <div className="flex justify-between items-start gap-4">
+                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100">{project.title}</h3>
+                    <span className="text-sm text-primary whitespace-nowrap">{project.date}</span>
                   </div>
                   
-                  <div className="mt-4 space-y-3">
-                    {project.description.map((paragraph, i) => (
-                      <p key={i} className="text-gray-700 dark:text-gray-300 text-sm">{paragraph}</p>
-                    ))}
+                  <div className="mt-4">
+                    <p className="text-gray-700 dark:text-gray-300 text-sm md:text-base leading-relaxed">
+                      {project.description[0].slice(0, 150)}...
+                    </p>
+                    <button
+                      onClick={() => setSelectedProject(project)}
+                      className="mt-2 text-primary hover:text-primary/80 font-medium text-sm flex items-center gap-1 group"
+                    >
+                      Show More
+                      <span className="transform transition-transform group-hover:translate-x-1">→</span>
+                    </button>
                   </div>
                   
                   <div className="mt-6">
-                    <h4 className="font-medium text-blue-600 dark:text-blue-400 flex items-center">
-                      <Code className="h-4 w-4 mr-1" />
+                    <h4 className="font-medium text-primary flex items-center">
+                      <Code className="h-4 w-4 mr-2" />
                       Tech Stack
                     </h4>
-                    <div className="mt-2 flex flex-wrap gap-2">
+                    <div className="mt-3 flex flex-wrap gap-2">
                       {project.techStack.map((tech, techIndex) => (
                         <span
                           key={techIndex}
-                          className="px-2 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 rounded-full text-xs"
+                          className="px-3 py-1.5 rounded-full text-xs font-medium
+                            bg-gray-600/30 text-gray-700 dark:text-gray-300 border border-gray-600/20
+                            hover:bg-primary/20 hover:text-primary
+                            transform hover:scale-105
+                            shadow-sm hover:shadow-md hover:shadow-primary/25
+                            transition-all duration-300
+                            flex items-center gap-1.5"
                         >
+                          {techStackIcons[tech] && (
+                            <span className="text-base">{techStackIcons[tech]}</span>
+                          )}
                           {tech}
                         </span>
                       ))}
                     </div>
                   </div>
                   
-                  <div className="mt-8 flex space-x-4">
-                    <a
-                      href={project.links.github}
-                      className="flex items-center text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors"
-                    >
-                      <Github className="h-5 w-5 mr-1" />
-                      <span>Code</span>
-                    </a>
-                    <a
-                      href={project.links.live}
-                      className="flex items-center text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors"
-                    >
-                      <ExternalLink className="h-5 w-5 mr-1" />
-                      <span>Live Demo</span>
-                    </a>
+                  <div className="mt-8 flex gap-4">
+                    <LinkButton href={project.links.github} icon={Github}>Code</LinkButton>
+                    <LinkButton href={project.links.live} icon={ExternalLink} primary>Live Demo</LinkButton>
                   </div>
                 </div>
               </div>
@@ -119,6 +264,14 @@ export default function Projects() {
           ))}
         </div>
       </div>
+
+      {/* Modal */}
+      {selectedProject && (
+        <ProjectModal 
+          project={selectedProject} 
+          onClose={() => setSelectedProject(null)} 
+        />
+      )}
     </section>
   );
 }
