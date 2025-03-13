@@ -1,8 +1,6 @@
 import { ThemeProvider } from '@/components/theme-provider';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -35,9 +33,7 @@ export default function RootLayout({ children }) {
               <div className="absolute h-56 w-56 top-1/4 left-1/3 rounded-full bg-blue-100/10 dark:bg-blue-900/5 blur-3xl"></div>
               <div className="absolute h-64 w-64 bottom-1/4 right-1/3 rounded-full bg-teal-100/10 dark:bg-teal-900/5 blur-3xl"></div>
             </div>
-            <Header />
             <main className="flex-1">{children}</main>
-            <Footer />
           </div>
         </ThemeProvider>
       </body>

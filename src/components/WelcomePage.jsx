@@ -78,7 +78,7 @@ const WelcomePage = ({ onFinish }) => {
         const timer = setTimeout(() => {
             setShow(false);
             onFinish();
-        }, 100000); // Reduced from 100000 to 60000 for better mobile experience
+        }, 10000); // Reduced from 100000 to 60000 for better mobile experience
 
         // Progress animation
         const interval = setInterval(() => {

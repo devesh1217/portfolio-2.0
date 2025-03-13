@@ -9,6 +9,8 @@ import Achievements from '@/components/Achievements';
 import Contact from '@/components/Contact';
 import { useEffect, useState } from 'react';
 import WelcomePage from '@/components/WelcomePage';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   const [showMainContent, setShowMainContent] = useState(false);
@@ -18,14 +20,18 @@ export default function Home() {
       {!showMainContent && <WelcomePage onFinish={() => setShowMainContent(true)} />}
       {showMainContent && (
         <>
-          <Hero />
-          <About />
-          <Skills />
-          <Education />
-          <Experience />
-          <Projects />
-          <Achievements />
-          <Contact />
+          <Header />
+          <div className='px-0 md:px-20'>
+            <Hero />
+            <About />
+            <Skills />
+            <Education />
+            <Experience />
+            <Projects />
+            <Achievements />
+            <Contact />
+          </div>
+          <Footer />
         </>
       )}
     </div>
