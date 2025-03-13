@@ -3,7 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary: #2563eb;
+  --primary: rgb(37, 99, 235);
+  --primary-rgb: 37, 99, 235;
   --primary-foreground: #ffffff;
   --muted: #fafafa;
   --muted-foreground: #6b7280;
