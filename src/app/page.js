@@ -16,12 +16,12 @@ export default function Home() {
   const [showMainContent, setShowMainContent] = useState(false);
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="">
       {!showMainContent && <WelcomePage onFinish={() => setShowMainContent(true)} />}
       {showMainContent && (
         <>
           <Header />
-          <div className='px-0 md:px-20'>
+          <div className='container mx-auto px-2 md:px-24'>
             <Hero />
             <About />
             <Skills />
