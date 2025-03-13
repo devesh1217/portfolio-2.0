@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Mail, Phone, Linkedin, Github, Twitter, Send } from 'lucide-react';
+import { SiLeetcode, SiCodeforces } from 'react-icons/si';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -42,150 +43,224 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section id="contact" className="py-16 md:py-24">
       <div className="container mx-auto px-4">
-        <h2 className="section-title">Get In Touch</h2>
+        <h2 className="section-title mb-16">Get In Touch</h2>
         
-        <div className="mt-12 grid md:grid-cols-2 gap-12">
-          <div>
-            <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-            
-            <div className="space-y-4">
-              <div className="flex items-center">
-                <div className="bg-blue-100 dark:bg-blue-900/50 p-3 rounded-full mr-4">
-                  <Mail className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+        <div className="grid lg:grid-cols-3 gap-8 items-start">
+          {/* Left Column - Contact Info and Form */}
+          <div className="lg:col-span-2 space-y-8 h-full flex flex-col">
+            {/* Contact Information */}
+            <div className="glass-effect rounded-xl p-8 animate-slide-up flex-none">
+              <h3 className="text-2xl font-bold mb-8">Contact Information</h3>
+              <div className="space-y-6">
+                {/* Email contact group */}
+                <div className="flex items-center group">
+                  <div className="p-4 rounded-xl mr-4 bg-primary/10 dark:bg-primary/5 
+                    group-hover:bg-primary/20 dark:group-hover:bg-primary/10 transition-colors">
+                    <Mail className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">Email</p>
+                    <a href="mailto:example@email.com" 
+                      className="text-primary hover:text-primary/80 font-medium transition-colors">
+                      example@email.com
+                    </a>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm">Email</p>
-                  <a href="mailto:example@email.com" className="text-blue-600 dark:text-blue-400 hover:underline">
-                    example@email.com
-                  </a>
+                
+                {/* Phone contact group */}
+                <div className="flex items-center group">
+                  <div className="p-4 rounded-xl mr-4 bg-primary/10 dark:bg-primary/5 
+                    group-hover:bg-primary/20 dark:group-hover:bg-primary/10 transition-colors">
+                    <Phone className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">Phone</p>
+                    <a href="tel:+1234567890" 
+                      className="text-primary hover:text-primary/80 font-medium transition-colors">
+                      +1 (234) 567-890
+                    </a>
+                  </div>
                 </div>
-              </div>
-              
-              <div className="flex items-center">
-                <div className="bg-blue-100 dark:bg-blue-900/50 p-3 rounded-full mr-4">
-                  <Phone className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-                </div>
-                <div>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm">Phone</p>
-                  <a href="tel:+1234567890" className="text-blue-600 dark:text-blue-400 hover:underline">
-                    +1 (234) 567-890
-                  </a>
+
+                {/* Social Links */}
+                <div className="mt-8">
+                  <h4 className="text-lg font-semibold mb-4">Quick Connect</h4>
+                  <div className="flex flex-wrap gap-4">
+                    {[
+                      { icon: Linkedin, href: "https://linkedin.com/", label: "LinkedIn" },
+                      { icon: Github, href: "https://github.com/", label: "GitHub" },
+                      { 
+                        icon: SiLeetcode, 
+                        href: "https://leetcode.com/your-username", 
+                        label: "LeetCode",
+                        customClass: "text-[1.3rem]" // Adjust size for better alignment
+                      },
+                      { 
+                        icon: SiCodeforces, 
+                        href: "https://codeforces.com/profile/your-username", 
+                        label: "CodeForces",
+                        customClass: "text-[1.3rem]" // Adjust size for better alignment
+                      },
+                      { icon: Twitter, href: "https://twitter.com/", label: "Twitter" }
+                    ].map((social, index) => (
+                      <a 
+                        key={index}
+                        href={social.href} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="p-4 rounded-xl bg-primary/10 dark:bg-primary/5 
+                          hover:bg-primary/20 dark:hover:bg-primary/10
+                          transform hover:scale-105 transition-all duration-300
+                          group relative"
+                        aria-label={social.label}
+                      >
+                        <social.icon className={`text-primary ${social.customClass || 'h-6 w-6'}`} />
+                        <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 
+                          bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-xs rounded 
+                          opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                          {social.label}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-            
-            <h3 className="text-2xl font-bold mt-10 mb-6">Connect With Me</h3>
-            
-            <div className="flex space-x-4">
-              <a 
-                href="https://linkedin.com/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="bg-blue-100 dark:bg-blue-900/50 p-3 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
-              >
-                <Linkedin className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-              </a>
-              <a 
-                href="https://github.com/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="bg-blue-100 dark:bg-blue-900/50 p-3 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
-              >
-                <Github className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-              </a>
-              <a 
-                href="https://twitter.com/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="bg-blue-100 dark:bg-blue-900/50 p-3 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
-              >
-                <Twitter className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-              </a>
+
+            {/* Contact Form - Make it fill remaining space */}
+            <div className="glass-effect rounded-xl p-8 animate-slide-up flex-1" style={{ animationDelay: '0.1s' }}>
+              <form onSubmit={handleSubmit}>
+                <h3 className="text-2xl font-bold mb-8">Send Me a Message</h3>
+                
+                {formStatus.submitted && (
+                  <div className={`p-4 mb-6 rounded-xl ${
+                    formStatus.success 
+                      ? 'bg-green-500/10 text-green-600 dark:text-green-400' 
+                      : 'bg-red-500/10 text-red-600 dark:text-red-400'
+                  }`}>
+                    {formStatus.message}
+                  </div>
+                )}
+                
+                <div className="space-y-6">
+                  {[
+                    { label: "Name", type: "text", name: "name" },
+                    { label: "Email", type: "email", name: "email" },
+                    { label: "Subject", type: "text", name: "subject" }
+                  ].map((field) => (
+                    <div key={field.name}>
+                      <label htmlFor={field.name} 
+                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {field.label}
+                      </label>
+                      <input
+                        type={field.type}
+                        id={field.name}
+                        name={field.name}
+                        value={formData[field.name]}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-gray-800/50 
+                          border border-gray-200 dark:border-gray-700
+                          focus:ring-2 focus:ring-primary/50 focus:border-primary
+                          dark:text-white transition-all duration-300"
+                      />
+                    </div>
+                  ))}
+                  
+                  <div>
+                    <label htmlFor="message" 
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows="4"
+                      className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-gray-800/50 
+                        border border-gray-200 dark:border-gray-700
+                        focus:ring-2 focus:ring-primary/50 focus:border-primary
+                        dark:text-white transition-all duration-300"
+                    ></textarea>
+                  </div>
+                  
+                  <button
+                    type="submit"
+                    className="w-full bg-gray-400/10 text-white font-medium py-3 px-6 rounded-xl
+                      hover:bg-gray-400/30 transform hover:scale-[1.02]
+                      transition-all duration-300 flex items-center justify-center gap-2 hover:cursor-pointer"
+                  >
+                    <Send className="h-5 w-5" />
+                    Send Message
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
-          
-          <div>
-            <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-              <h3 className="text-2xl font-bold mb-6">Send Me a Message</h3>
-              
-              {formStatus.submitted && (
-                <div className={`p-4 mb-6 rounded-md ${formStatus.success ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'}`}>
-                  {formStatus.message}
-                </div>
-              )}
-              
-              <div className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows="4"
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-                  ></textarea>
-                </div>
-                
-                <button
-                  type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors flex items-center justify-center"
-                >
-                  <Send className="h-4 w-4 mr-2" />
-                  Send Message
-                </button>
+
+          {/* Right Column - Social Activity */}
+          <div className="lg:col-span-1 space-y-8 h-full flex flex-col sticky top-24">
+            {/* LinkedIn Preview */}
+            <div className="glass-effect rounded-xl p-6 animate-slide-up flex-none" style={{ animationDelay: '0.2s' }}>
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+                <Linkedin className="h-5 w-5 text-primary" />
+                LinkedIn Activity
+              </h3>
+              <div className="rounded-lg overflow-hidden bg-white hover:scale-[1.02] transition-transform">
+                <iframe
+                  src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7276140592730980352"
+                  height="250"
+                  width="100%"
+                  frameBorder="0"
+                  allowFullScreen
+                  title="LinkedIn Featured"
+                  className="bg-white"
+                />
               </div>
-            </form>
+            </div>
+
+            {/* GitHub Activity */}
+            <div className="glass-effect rounded-xl p-6 animate-slide-up flex-none overflow-hidden" style={{ animationDelay: '0.3s' }}>
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+                <Github className="h-5 w-5 text-primary" />
+                GitHub Activity
+              </h3>
+              
+              <div className="space-y-6 max-h-[600px] overflow-y-auto scrollbar-thin pr-2">
+                {/* GitHub Stats Cards */}
+                {[
+                  {
+                    src: "https://github-readme-stats.vercel.app/api?username=devesh1217&show_icons=true&theme=transparent",
+                    alt: "GitHub Stats"
+                  },
+                  {
+                    src: "https://github-readme-stats.vercel.app/api/top-langs/?username=devesh1217&layout=compact&theme=transparent",
+                    alt: "Most Used Languages"
+                  },
+                  {
+                    src: "https://github-contribution-stats.vercel.app/api/?username=devesh1217",
+                    alt: "Contribution Graph"
+                  }
+                ].map((stat, index) => (
+                  <div 
+                    key={index}
+                    className="rounded-lg overflow-hidden bg-white/80 dark:bg-gray-900/80 
+                      hover:scale-[1.02] transition-transform"
+                  >
+                    <img
+                      src={stat.src}
+                      alt={stat.alt}
+                      className="w-full"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
