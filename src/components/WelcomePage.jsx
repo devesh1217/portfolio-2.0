@@ -78,7 +78,7 @@ const WelcomePage = ({ onFinish }) => {
         const timer = setTimeout(() => {
             setShow(false);
             onFinish();
-        }, 10000); // Reduced from 100000 to 60000 for better mobile experience
+        }, 100000); // Reduced from 100000 to 60000 for better mobile experience
 
         // Progress animation
         const interval = setInterval(() => {
@@ -149,9 +149,9 @@ const WelcomePage = ({ onFinish }) => {
                             <div className="relative bg-[#0d1726] rounded-lg overflow-hidden border border-gray-700">
                                 <div className="flex items-center px-4 py-2 bg-[#0d1726] border-b border-gray-700">
                                     <div className="flex space-x-1.5">
-                                        <div className="w-3 h-3 rounded-full bg-gray-500"></div>
-                                        <div className="w-3 h-3 rounded-full bg-gray-500"></div>
-                                        <div className="w-3 h-3 rounded-full bg-gray-500"></div>
+                                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
                                     </div>
                                     <div className="ml-4 text-xs text-gray-400 font-mono">wisdom-counter.jsx</div>
                                 </div>
@@ -220,9 +220,9 @@ const WelcomePage = ({ onFinish }) => {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -20 }}
                                     transition={{ duration: 0.5 }}
-                                    className="mb-4 md:mb-8"
+                                    className="mb-4 md:mb-8 shadow"
                                 >
-                                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white font-[sanskrit] mb-2 md:mb-4">
+                                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-amber-300 font-[sanskrit] mb-2 md:mb-4">
                                         {sanskritTexts[currentSanskritIndex].sanskrit}
                                     </h2>
                                     <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-400">
