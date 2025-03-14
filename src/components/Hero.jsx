@@ -1,8 +1,32 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, Mail, Briefcase } from 'lucide-react';
 
 export default function Hero() {
+  const LinkButton = ({ href, icon: Icon, children, primary = false }) => (
+    <Link
+      href={href}
+      className={`
+        group flex items-center gap-2 px-4 py-2.5 rounded-lg
+        relative overflow-hidden
+        ${primary ? 
+          'bg-primary/10 text-primary hover:text-white dark:bg-primary/5' : 
+          'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary'
+        }
+        transition-all duration-300
+      `}
+    >
+      <div className={`
+        absolute inset-0 opacity-0 group-hover:opacity-100
+        ${primary ? 'bg-primary' : 'bg-primary/5 dark:bg-primary/5'}
+        transition-all duration-300 transform group-hover:scale-100 scale-90
+        rounded-lg
+      `} />
+      <Icon className="h-5 w-5 relative z-10 transition-transform duration-300 group-hover:scale-110" />
+      <span className="font-medium relative z-10">{children}</span>
+    </Link>
+  );
+
   return (
     <section className="relative min-h-[90vh] flex items-center md:pt-20 pb-16">
       <div className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
@@ -22,18 +46,12 @@ export default function Hero() {
             Building innovative solutions while exploring the intersection of ancient wisdom and modern technology.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link
-              href="#contact"
-              className="btn-primary backdrop-blur-sm bg-teal-700/80 hover:bg-teal-700 dark:bg-teal-600/80 dark:hover:bg-teal-600"
-            >
+            <LinkButton href="#contact" icon={Mail} primary>
               Get in Touch
-            </Link>
-            <Link
-              href="#projects"
-              className="btn-secondary backdrop-blur-sm bg-white/5 dark:bg-gray-800/10 border border-white/10 dark:border-gray-700/20"
-            >
+            </LinkButton>
+            <LinkButton href="#projects" icon={Briefcase}>
               View My Work
-            </Link>
+            </LinkButton>
           </div>
         </div>
 
