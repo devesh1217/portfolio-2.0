@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Personal Portfolio Website
+
+A modern, responsive portfolio website built with Next.js, React, and TailwindCSS.
+
+## Features
+
+- 🌓 Dark/Light mode support
+- 🎨 Modern gradient background
+- 📱 Fully responsive design
+- ⚡ Fast page loads with Next.js
+- 🎬 Smooth animations with Framer Motion
+- 📊 Visit analytics tracking
+- 🎯 SEO optimized
+- ♿ Accessibility focused
+
+## Tech Stack
+
+- Next.js 15
+- React 19
+- TailwindCSS 4
+- Framer Motion
+- MongoDB
+- Axios
 
 ## Getting Started
 
-First, run the development server:
-
+1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/portfolio.git
+cd portfolio
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+3. Create a `.env.local` file and add your environment variables
+```bash
+MONGODB_URI=your_mongodb_connection_string
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Run the development server
+```bash
+npm run dev
+```
 
-## Learn More
+5. Open [http://localhost:3000](http://localhost:3000) to view the website
 
-To learn more about Next.js, take a look at the following resources:
+## Building for Production
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run build
+npm start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+portfolio/
+├── src/
+│   ├── app/           # Next.js app directory
+│   ├── components/    # React components
+│   └── utils/        # Utility functions
+├── public/           # Static assets
+└── package.json      # Project dependencies
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is open source and available under the [MIT License](LICENSE).
+
+## Author
+
+Devesh Mehta
+- Website: [devesh-mehta.vercel.app](https://devesh-mehta.vercel.app)
+- LinkedIn: [devesh1217](https://linkedin.com/in/devesh1217)
+- GitHub: [devesh1217](https://github.com/devesh1217)
