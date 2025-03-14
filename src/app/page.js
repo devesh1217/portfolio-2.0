@@ -1,4 +1,5 @@
 "use client";
+import { Suspense } from 'react';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
 import Skills from '@/components/Skills';
@@ -12,30 +13,16 @@ import WelcomePage from '@/components/WelcomePage';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { smoothScrollTo } from '@/utils/scroll';
-import { useSearchParams } from 'next/navigation';
-import axios from 'axios';
+import AnalyticsTracker from '@/components/AnalyticsTracker';
 
 export default function Home() {
   const [showMainContent, setShowMainContent] = useState(false);
   const [initialHash, setInitialHash] = useState('');
-  const searchParams = useSearchParams();
 
-  const trackVisit = async (source) => {
-    try {
-      await axios.post('/api/analytics', { source });
-    } catch (error) {
-      console.error('Error tracking visit:', error);
-    } finally { 
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
-  };
-  
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setInitialHash(window.location.hash);
     }
-    const source = searchParams.get('utm_source') || 'direct';    
-    trackVisit(source);
   }, []);
 
   const handleWelcomeFinish = () => {
@@ -50,6 +37,9 @@ export default function Home() {
 
   return (
     <div className="" role="document">
+      <Suspense fallback={null}>
+        <AnalyticsTracker />
+      </Suspense>
       {!showMainContent && <WelcomePage onFinish={handleWelcomeFinish} />}
       {showMainContent && (
         <>
