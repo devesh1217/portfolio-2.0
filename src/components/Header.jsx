@@ -76,11 +76,11 @@ export default function Header() {
     <header className={`sticky top-0 z-50 transition-all duration-500 ${
       isScrolled ? 'glass-effect shadow-lg' : 'bg-transparent'
     }`}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex h-16 sm:h-20 items-center justify-between">
           <Link href="/" className="group flex items-center gap-0.5 hover:gap-1.5 transition-all duration-300">
             <div className="flex items-baseline">
-              <span className="font-playfair text-2xl sm:text-3xl font-bold bg-gradient-to-r dark:from-teal-700 dark:to-blue-300 from-teal-900 to-blue-600 bg-clip-text text-transparent">
+              <span className="font-playfair text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-300 bg-clip-text text-transparent">
                 Dev
               </span>
               <span className="font-code text-xl sm:text-2xl text-gray-600 dark:text-gray-400">
@@ -88,7 +88,7 @@ export default function Header() {
               </span>
             </div>
             <div className="flex items-baseline">
-              <span className="font-playfair text-2xl sm:text-3xl font-bold bg-gradient-to-r dark:from-teal-700 dark:to-blue-300 from-teal-900 to-blue-600 bg-clip-text text-transparent">
+              <span className="font-playfair text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-300 bg-clip-text text-transparent">
                 Me
               </span>
               <span className="font-code text-xl sm:text-2xl text-gray-600 dark:text-gray-400">

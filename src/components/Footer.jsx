@@ -18,18 +18,18 @@ export default function Footer() {
       behavior: 'smooth'
     });
   };
-  
+
   return (
     <footer className="mt-16 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-100/50 dark:to-gray-900/50 -z-10" />
-      
+
       <div className="container mx-auto">
         <div className="glass-effect rounded-2xl p-6 sm:p-8 lg:p-12">
           <div className="flex flex-col md:flex-row justify-between items-start gap-8">
             <div className="w-full md:w-1/3 space-y-4">
               <Link href="/" className="inline-flex items-center gap-0.5 hover:gap-1.5 transition-all duration-300">
                 <div className="flex items-baseline">
-                  <span className="font-playfair text-2xl sm:text-3xl font-bold bg-gradient-to-r dark:from-teal-700 dark:to-blue-300 from-teal-900 to-blue-600 bg-clip-text text-transparent">
+                  <span className="font-playfair text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-300 bg-clip-text text-transparent">
                     Dev
                   </span>
                   <span className="font-code text-xl sm:text-2xl text-gray-600 dark:text-gray-400">
@@ -37,7 +37,7 @@ export default function Footer() {
                   </span>
                 </div>
                 <div className="flex items-baseline">
-                  <span className="font-playfair text-2xl sm:text-3xl font-bold bg-gradient-to-r dark:from-teal-700 dark:to-blue-300 from-teal-900 to-blue-600 bg-clip-text text-transparent">
+                  <span className="font-playfair text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-300 bg-clip-text text-transparent">
                     Me
                   </span>
                   <span className="font-code text-xl sm:text-2xl text-gray-600 dark:text-gray-400">
@@ -49,7 +49,7 @@ export default function Footer() {
                 Building innovative solutions while exploring the intersection of ancient wisdom and modern technology.
               </p>
             </div>
-            
+
             <nav className="grid grid-cols-2 sm:flex sm:flex-wrap justify-start md:justify-end gap-4 sm:gap-6 lg:gap-12">
               {['About', 'Skills', 'Education', 'Experience', 'Projects', 'Achievements', 'Contact'].map((item) => (
                 <Link
@@ -70,16 +70,16 @@ export default function Footer() {
               ))}
             </nav>
           </div>
-          
+
           <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-200/20 dark:border-gray-700/20 
             flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">
               &copy; {currentYear} | All Rights Reserved
             </p>
-            
+
             <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 flex items-center 
               hover:text-primary transition-colors">
-              Made with <Heart className="h-4 w-4 mx-2 text-red-500 animate-pulse" /> in India.
+              Made with <Heart className="h-4 w-4 mx-2 text-red-500 animate-pulse" /> in INDIA.
             </p>
           </div>
         </div>
