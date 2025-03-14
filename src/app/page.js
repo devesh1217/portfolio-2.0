@@ -11,13 +11,31 @@ import { useEffect, useState } from 'react';
 import WelcomePage from '@/components/WelcomePage';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { smoothScrollTo } from '@/utils/scroll';
 
 export default function Home() {
   const [showMainContent, setShowMainContent] = useState(false);
+  const [initialHash, setInitialHash] = useState('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setInitialHash(window.location.hash);
+    }
+  }, []);
+
+  const handleWelcomeFinish = () => {
+    setShowMainContent(true);
+    if (initialHash) {
+      const sectionId = initialHash.replace('#', '');
+      setTimeout(() => {
+        smoothScrollTo(sectionId);
+      }, 100);
+    }
+  };
 
   return (
     <div className="" role="document">
-      {!showMainContent && <WelcomePage onFinish={() => setShowMainContent(true)} />}
+      {!showMainContent && <WelcomePage onFinish={handleWelcomeFinish} />}
       {showMainContent && (
         <>
           <Header />

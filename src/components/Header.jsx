@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Menu, X } from 'lucide-react';
+import { smoothScrollTo } from '@/utils/scroll';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,18 +34,7 @@ export default function Header() {
 
   const handleLinkClick = (e, sectionId) => {
     e.preventDefault();
-    const element = document.getElementById(sectionId);
-    const offset = 80; // Height of fixed header
-    const bodyRect = document.body.getBoundingClientRect().top;
-    const elementRect = element.getBoundingClientRect().top;
-    const elementPosition = elementRect - bodyRect;
-    const offsetPosition = elementPosition - offset;
-
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: 'smooth'
-    });
-    
+    smoothScrollTo(sectionId);
     setIsMenuOpen(false);
   };
 
