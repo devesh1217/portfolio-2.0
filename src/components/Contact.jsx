@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, Phone, Linkedin, Github, Twitter, Send } from 'lucide-react';
+import { Mail, Phone, Linkedin, Github, Instagram, Send } from 'lucide-react';
 import { SiLeetcode, SiCodeforces } from 'react-icons/si';
 
 export default function Contact() {
@@ -62,15 +62,15 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">Email</p>
-                    <a href="mailto:example@email.com" 
+                    <a href="mailto:devesh1217@yahoo.com" 
                       className="text-primary hover:text-primary/80 font-medium transition-colors">
-                      example@email.com
+                      devesh1217@yahoo.com
                     </a>
                   </div>
                 </div>
                 
                 {/* Phone contact group */}
-                <div className="flex items-center group">
+                {/* <div className="flex items-center group">
                   <div className="p-4 rounded-xl mr-4 bg-primary/10 dark:bg-primary/5 
                     group-hover:bg-primary/20 dark:group-hover:bg-primary/10 transition-colors">
                     <Phone className="h-6 w-6 text-primary" />
@@ -82,28 +82,28 @@ export default function Contact() {
                       +1 (234) 567-890
                     </a>
                   </div>
-                </div>
+                </div> */}
 
                 {/* Social Links */}
                 <div className="mt-8">
                   <h4 className="text-lg font-semibold mb-4">Quick Connect</h4>
                   <div className="flex flex-wrap justify-between md:justify-start gap-0 md:gap-4">
                     {[
-                      { icon: Linkedin, href: "https://linkedin.com/", label: "LinkedIn" },
-                      { icon: Github, href: "https://github.com/", label: "GitHub" },
+                      { icon: Linkedin, href: "https://www.linkedin.com/in/devesh1217/", label: "LinkedIn" },
+                      { icon: Github, href: "https://github.com/devesh1217", label: "GitHub" },
                       { 
                         icon: SiLeetcode, 
-                        href: "https://leetcode.com/your-username", 
+                        href: "https://leetcode.com/devesh1217/", 
                         label: "LeetCode",
                         customClass: "text-[1.3rem]" // Adjust size for better alignment
                       },
                       { 
                         icon: SiCodeforces, 
-                        href: "https://codeforces.com/profile/your-username", 
+                        href: "https://codeforces.com/profile/devesh1217", 
                         label: "CodeForces",
                         customClass: "text-[1.3rem]" // Adjust size for better alignment
                       },
-                      { icon: Twitter, href: "https://twitter.com/", label: "Twitter" }
+                      { icon: Instagram, href: "https://www.instagram.com/devesh_1217", label: "Instagram" }
                     ].map((social, index) => (
                       <a 
                         key={index}
