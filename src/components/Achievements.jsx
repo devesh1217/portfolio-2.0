@@ -109,11 +109,11 @@ export default function Achievements() {
   );
 
   return (
-    <section id="achievements" className="py-16 md:py-24">
+    <section id="achievements" className="my-16 md:my-24 md:py-2 realtive">
       <div className="container mx-auto px-4">
-        <h2 className="section-title">Achievements</h2>
+        <h2 className="section-title mb-16 md:mb-20">Achievements</h2>
         
-        <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {achievements.map((achievement, index) => (
             <div 
               key={index}

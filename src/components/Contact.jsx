@@ -43,9 +43,9 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-16 md:py-24">
+    <section id="contact" className="my-16 md:my-24 md:py-2 realtive">
       <div className="container mx-auto px-4">
-        <h2 className="section-title mb-16">Get In Touch</h2>
+        <h2 className="section-title mb-16 md:mb-20">Get In Touch</h2>
         
         <div className="grid lg:grid-cols-3 gap-8 items-start">
           {/* Left Column - Contact Info and Form */}

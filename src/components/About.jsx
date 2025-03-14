@@ -11,11 +11,11 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="py-16 md:py-24 relative">
+    <section id="about" className="my-16 md:my-24 md:py-2 relative">
       <div className="container mx-auto px-4">
         <h2 className="section-title text-center mb-16 md:mb-20">About Me</h2>
         
-        <div className="grid md:grid-cols-2 gap-8 md:gap-20 items-stretch mt-6">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-20 items-stretch">
           <div className="prose prose-lg dark:prose-invert max-w-none animate-slide-up glass-effect p-6 md:p-8 lg:p-10 rounded-2xl">
             <div className="flex items-center gap-4 mb-6 md:mb-8">
               <BsBook className="w-6 h-6 md:w-8 md:h-8 text-primary" />

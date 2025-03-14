@@ -172,11 +172,11 @@ export default function Projects() {
   );
 
   return (
-    <section id="projects" className="py-16 md:py-24">
+    <section id="projects" className="my-16 md:my-24 md:py-2 relative">
       <div className="container mx-auto px-4">
-        <h2 className="section-title text-center mb-16">Projects</h2>
+        <h2 className="section-title text-center mb-16 md:mb-20">Projects</h2>
         
-        <div className="mt-12 space-y-16">
+        <div className="space-y-16">
           {projects.map((project, index) => (
             <div 
               key={index} 

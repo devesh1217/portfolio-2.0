@@ -59,11 +59,11 @@ export default function Experience() {
   );
 
   return (
-    <section id="experience" className="py-16 md:py-24 relative">
+    <section id="experience" className="my-16 md:my-24 md:py-2 relative">
       <div className="container mx-auto px-4">
-        <h2 className="section-title text-center mb-16">Work Experience</h2>
+        <h2 className="section-title text-center mb-16 md:mb-20">Work Experience</h2>
         
-        <div className="mt-12 relative">
+        <div className="relative">
           {/* Timeline line */}
           <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[3px] bg-gray-600 dark:bg-gray-400 opacity-50"></div>
           

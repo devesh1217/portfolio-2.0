@@ -29,7 +29,7 @@ export default function Education() {
   ];
 
   return (
-    <section id="education" className="py-16 md:py-24 relative">
+    <section id="education" className="my-16 md:my-24 md:py-2 relative">
       <div className="container mx-auto px-4">
         <h2 className="section-title text-center mb-16 md:mb-20">Education</h2>
         
