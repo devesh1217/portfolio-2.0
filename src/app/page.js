@@ -16,20 +16,23 @@ export default function Home() {
   const [showMainContent, setShowMainContent] = useState(false);
 
   return (
-    <div className="">
+    <div className="" role="document">
       {!showMainContent && <WelcomePage onFinish={() => setShowMainContent(true)} />}
       {showMainContent && (
         <>
           <Header />
           <div className='container mx-auto px-2 md:px-24'>
-            <Hero />
-            <About />
-            <Skills />
-            <Education />
-            <Experience />
-            <Projects />
-            <Achievements />
-            <Contact />
+            <article itemScope itemType="http://schema.org/Person">
+              <meta itemProp="name" content="Devesh Mehta" />
+              <Hero />
+              <About />
+              <Skills />
+              <Education />
+              <Experience />
+              <Projects />
+              <Achievements />
+              <Contact />
+            </article>
           </div>
           <Footer />
         </>

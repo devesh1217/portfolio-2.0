@@ -13,13 +13,55 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-  title: 'Portfolio | NIT Surat Graduate',
-  description: 'Portfolio of a calm, focused software developer and technology explorer with a passion for ancient texts and Sanskrit',
+  metadataBase: new URL('https://devesh-mehta.vercel.app'),
+  title: 'Devesh Chetan Mehta | Software Developer & NIT Surat Graduate',
+  description: 'Portfolio of Devesh Mehta - A software developer and NIT Surat graduate, combining modern technology expertise with insights from ancient Sanskrit texts. Specialized in full-stack development and innovative solutions.',
+  keywords: ['Devesh Mehta', 'software developer', 'NIT Surat', 'full-stack developer', 'Sanskrit technology', 'web development', 'portfolio'],
+  authors: [{ name: 'Devesh Mehta' }],
+  creator: 'Devesh Mehta',
+  publisher: 'Devesh Mehta',
+  openGraph: {
+    title: 'Devesh Mehta | Software Developer',
+    description: 'Portfolio of Devesh Mehta - Software Developer & NIT Surat Graduate',
+    type: 'website',
+    locale: 'en_IN',
+    siteName: 'Devesh Mehta Portfolio',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Devesh Mehta - Software Developer',
+    creator: '@deveshmehta',
+  },
+  verification: {
+    google: 'your-google-verification-code',
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Devesh Mehta",
+              "alumniOf": {
+                "@type": "CollegeOrUniversity",
+                "name": "National Institute of Technology, Surat"
+              },
+              "jobTitle": "Software Developer",
+              "url": "https://deveshmehta.com",
+              "sameAs": [
+                "https://linkedin.com/in/deveshmehta",
+                "https://github.com/deveshmehta"
+              ]
+            })
+          }}
+        />
+      </head>
       <body className={`${inter.variable} ${playfair.variable} font-sans`}>
         <ThemeProvider
           attribute="class"
