@@ -87,7 +87,7 @@ export default function Contact() {
                 {/* Social Links */}
                 <div className="mt-8">
                   <h4 className="text-lg font-semibold mb-4">Quick Connect</h4>
-                  <div className="flex flex-wrap gap-4">
+                  <div className="flex flex-wrap justify-between md:justify-start gap-0 md:gap-4">
                     {[
                       { icon: Linkedin, href: "https://linkedin.com/", label: "LinkedIn" },
                       { icon: Github, href: "https://github.com/", label: "GitHub" },
@@ -110,7 +110,7 @@ export default function Contact() {
                         href={social.href} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="p-4 rounded-xl bg-primary/10 dark:bg-primary/5 
+                        className="md:p-4 rounded-xl bg-primary/10 dark:bg-primary/5 
                           hover:bg-primary/20 dark:hover:bg-primary/10
                           transform hover:scale-105 transition-all duration-300
                           group relative"
