@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Mail, Phone, Linkedin, Github, Instagram, Send } from 'lucide-react';
+import { Mail, Phone, Linkedin, Github, Instagram, Send, Loader2 } from 'lucide-react';
 import { SiLeetcode, SiCodeforces } from 'react-icons/si';
 
 export default function Contact() {
@@ -11,11 +11,12 @@ export default function Contact() {
     subject: '',
     message: ''
   });
-  
+
   const [formStatus, setFormStatus] = useState({
     submitted: false,
     success: false,
-    message: ''
+    message: '',
+    isLoading: false
   });
 
   const handleChange = (e) => {
@@ -23,30 +24,57 @@ export default function Contact() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // In a real implementation, you would send this data to your server or a form service
-    // This is a simulation of form submission
     setFormStatus({
       submitted: true,
-      success: true,
-      message: 'Thank you for your message! I will get back to you soon.'
+      success: false,
+      message: 'Sending message...',
+      isLoading: true
     });
-    
-    // Reset form after successful submission
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setFormStatus({
+          submitted: true,
+          success: true,
+          message: 'Thank you for your message! You will receive a confirmation email shortly.',
+          isLoading: false
+        });
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        throw new Error(data.message);
+      }
+    } catch (error) {
+      setFormStatus({
+        submitted: true,
+        success: false,
+        message: 'Failed to send message. Please try again later.',
+        isLoading: false
+      });
+    }
   };
 
   return (
     <section id="contact" className="my-16 md:my-24 md:py-2 realtive">
       <div className="container mx-auto px-4">
         <h2 className="section-title mb-16 md:mb-20">Get In Touch</h2>
-        
+
         <div className="grid lg:grid-cols-3 gap-8 items-start">
           {/* Left Column - Contact Info and Form */}
           <div className="lg:col-span-2 space-y-8 h-full flex flex-col">
@@ -62,13 +90,13 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">Email</p>
-                    <a href="mailto:devesh1217@yahoo.com" 
+                    <a href="mailto:devesh1217@yahoo.com"
                       className="text-primary hover:text-primary/80 font-medium transition-colors">
                       devesh1217@yahoo.com
                     </a>
                   </div>
                 </div>
-                
+
                 {/* Phone contact group */}
                 {/* <div className="flex items-center group">
                   <div className="p-4 rounded-xl mr-4 bg-primary/10 dark:bg-primary/5 
@@ -91,24 +119,24 @@ export default function Contact() {
                     {[
                       { icon: Linkedin, href: "https://www.linkedin.com/in/devesh1217/", label: "LinkedIn" },
                       { icon: Github, href: "https://github.com/devesh1217", label: "GitHub" },
-                      { 
-                        icon: SiLeetcode, 
-                        href: "https://leetcode.com/devesh1217/", 
+                      {
+                        icon: SiLeetcode,
+                        href: "https://leetcode.com/devesh1217/",
                         label: "LeetCode",
                         customClass: "text-[1.3rem]" // Adjust size for better alignment
                       },
-                      { 
-                        icon: SiCodeforces, 
-                        href: "https://codeforces.com/profile/devesh1217", 
+                      {
+                        icon: SiCodeforces,
+                        href: "https://codeforces.com/profile/devesh1217",
                         label: "CodeForces",
                         customClass: "text-[1.3rem]" // Adjust size for better alignment
                       },
                       { icon: Instagram, href: "https://www.instagram.com/devesh_1217", label: "Instagram" }
                     ].map((social, index) => (
-                      <a 
+                      <a
                         key={index}
-                        href={social.href} 
-                        target="_blank" 
+                        href={social.href}
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="md:p-4 rounded-xl bg-primary/10 dark:bg-primary/5 
                           hover:bg-primary/20 dark:hover:bg-primary/10
@@ -133,17 +161,9 @@ export default function Contact() {
             <div className="glass-effect rounded-xl p-8 animate-slide-up flex-1" style={{ animationDelay: '0.1s' }}>
               <form onSubmit={handleSubmit}>
                 <h3 className="text-2xl font-bold mb-8">Send Me a Message</h3>
-                
-                {formStatus.submitted && (
-                  <div className={`p-4 mb-6 rounded-xl ${
-                    formStatus.success 
-                      ? 'bg-green-500/10 text-green-600 dark:text-green-400' 
-                      : 'bg-red-500/10 text-red-600 dark:text-red-400'
-                  }`}>
-                    {formStatus.message}
-                  </div>
-                )}
-                
+
+
+
                 <div className="space-y-6">
                   {[
                     { label: "Name", type: "text", name: "name" },
@@ -151,7 +171,7 @@ export default function Contact() {
                     { label: "Subject", type: "text", name: "subject" }
                   ].map((field) => (
                     <div key={field.name}>
-                      <label htmlFor={field.name} 
+                      <label htmlFor={field.name}
                         className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         {field.label}
                       </label>
@@ -169,9 +189,9 @@ export default function Contact() {
                       />
                     </div>
                   ))}
-                  
+
                   <div>
-                    <label htmlFor="message" 
+                    <label htmlFor="message"
                       className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       Message
                     </label>
@@ -188,15 +208,30 @@ export default function Contact() {
                         dark:text-white transition-all duration-300"
                     ></textarea>
                   </div>
-                  
+
+                  {formStatus.submitted && (
+                    <div className={`p-4 mb-6 rounded-xl ${formStatus.success
+                        ? 'bg-green-500/10 text-green-600 dark:text-green-400'
+                        : 'bg-red-500/10 text-red-600 dark:text-red-400'
+                      }`}>
+                      {formStatus.message}
+                    </div>
+                  )}
+
                   <button
                     type="submit"
-                    className="w-full bg-gray-400/10 text-white font-medium py-3 px-6 rounded-xl
+                    disabled={formStatus.isLoading}
+                    className={`w-full bg-gray-400/10 text-white font-medium py-3 px-6 rounded-xl
                       hover:bg-gray-400/30 transform hover:scale-[1.02]
-                      transition-all duration-300 flex items-center justify-center gap-2 hover:cursor-pointer"
+                      transition-all duration-300 flex items-center justify-center gap-2
+                      ${formStatus.isLoading ? 'opacity-70 cursor-not-allowed' : 'hover:cursor-pointer'}`}
                   >
-                    <Send className="h-5 w-5" />
-                    Send Message
+                    {formStatus.isLoading ? (
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                    ) : (
+                      <Send className="h-5 w-5" />
+                    )}
+                    {formStatus.isLoading ? 'Sending...' : 'Send Message'}
                   </button>
                 </div>
               </form>
@@ -230,7 +265,7 @@ export default function Contact() {
                 <Github className="h-5 w-5 text-primary" />
                 GitHub Activity
               </h3>
-              
+
               <div className="space-y-6 max-h-[600px] overflow-y-auto scrollbar-thin pr-2">
                 {/* GitHub Stats Cards */}
                 {[
@@ -247,7 +282,7 @@ export default function Contact() {
                     alt: "Contribution Graph"
                   }
                 ].map((stat, index) => (
-                  <div 
+                  <div
                     key={index}
                     className="rounded-lg overflow-hidden bg-white/80 dark:bg-gray-900/80 
                       hover:scale-[1.02] transition-transform"
