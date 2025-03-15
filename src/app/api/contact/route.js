@@ -27,11 +27,11 @@ export async function POST(req) {
     };
 
     const socialIcons = {
-      linkedin: "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png",
-      github: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
-      leetcode: "https://leetcode.com/_next/static/images/logo-dark-c96c407d175e36c81e236fcfdd682a0b.png",
-      codeforces: "https://cdn.iconscout.com/icon/free/png-256/free-code-forces-3628695-3029920.png",
-      instagram: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png"
+      linkedin: "https://img.icons8.com/?size=100&id=8808&format=png&color=000000",
+      github: "https://img.icons8.com/?size=100&id=62856&format=png&color=000000",
+      leetcode: "https://img.icons8.com/?size=100&id=S22n5FcHWTiO&format=png&color=000000",
+      codeforces: "https://img.icons8.com/?size=100&id=iNL6HTqpNVeO&format=png&color=000000",
+      instagram: "https://img.icons8.com/?size=100&id=59813&format=png&color=000000"
     };
 
     // Email template for owner
@@ -74,32 +74,34 @@ export async function POST(req) {
         <!-- Footer with Social Icons -->
         <div style="margin-top: 20px; text-align: center; background: #f8f9fa; padding: 20px; border-radius: 10px;">
           <h4 style="color: #4a5568; margin-bottom: 15px; font-size: 16px;">Let's Connect!</h4>
-          <div style="display: grid; grid-template-columns: repeat(5, 1fr); max-width: 300px; margin: 0 auto; gap: 20px; margin-bottom: 20px;">
-            ${Object.entries(socialLinks).map(([platform, url]) => `
-              <a href="${url}" target="_blank" style="text-decoration: none; display: flex; justify-content: center; align-items: center;">
-                <img src="${socialIcons[platform]}" 
-                     alt="${platform}" 
-                     style="width: 28px; height: 28px; object-fit: contain; transition: transform 0.2s;"
-                     onmouseover="this.style.transform='scale(1.1)'"
-                     onmouseout="this.style.transform='scale(1)'"
-                />
-              </a>
-            `).join('')}
-          </div>
+          <table style="width: 100%; max-width: 320px; margin: 0 auto;">
+            <tr>
+              <td style="text-align: center; padding: 0 10px;">
+                ${Object.entries(socialLinks).map(([platform, url]) => `
+                  <a href="${url}" target="_blank" style="text-decoration: none; display: inline-block; margin: 0 8px;">
+                    <img src="${socialIcons[platform]}" 
+                         alt="${platform}" 
+                         style="width: 24px; height: 24px; opacity: 0.9;"
+                    />
+                  </a>
+                `).join('')}
+              </td>
+            </tr>
+          </table>
           
           <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #edf2f7;">
             <p style="color: #4a5568; margin: 8px 0;">
               <a href="${contactInfo.website}" 
-                 style="color: #3b82f6; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;" 
+                 style="color: #000; text-decoration: underline; display: flex; align-items: center; gap: 5px;" 
                  target="_blank">
-                <img src="https://img.icons8.com/fluency-systems-regular/24/3b82f6/globe.png" style="width: 16px; height: 16px;"/>
+                <img src="https://img.icons8.com/?size=100&id=53372&format=png&color=000000" style="width: 16px; height: 16px;"/>
                 devesh-mehta.vercel.app
               </a>
             </p>
             <p style="color: #4a5568; margin: 8px 0;">
               <a href="mailto:${contactInfo.email}" 
-                 style="color: #3b82f6; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
-                <img src="https://img.icons8.com/fluency-systems-regular/24/3b82f6/mail.png" style="width: 16px; height: 16px;"/>
+                 style="color: #000; text-decoration: underline; display: inline-flex; align-items: center; gap: 5px;">
+                <img src="https://img.icons8.com/?size=100&id=12623&format=png&color=000000" style="width: 16px; height: 16px;"/>
                 ${contactInfo.email}
               </a>
             </p>
