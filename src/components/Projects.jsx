@@ -32,7 +32,18 @@ export default function Projects() {
         "Built a custom registration system replicating Google Forms, with form creation, file uploads via Google Drive APIs, deadline management, and real-time response storage in Google Sheets reducing registration time by more than 70%. Also developed an Interview Experience Sharing Portal with admin verification, rich text editing, job details, Q&A with email notifications, and view counters.",
         "Developed a coding leaderboard for 500+ students across 4+ platforms, featuring batch-wise stats, optimized search, sorting, and insights. Created dynamic team pages, project showcases, and user profiles with tokanized password recovery, coding profile integration, and admin features like JWT authentication, form & project management, and achievement and alumni verification."
       ],
-      image: "/placeholder-project-1.jpg",
+      images: [
+        "/img/projects/p1/img1.png",
+        "/img/projects/p1/img2.png",
+        "/img/projects/p1/img3.png",
+        "/img/projects/p1/img4.png",
+        "/img/projects/p1/img5.png",
+        "/img/projects/p1/img6.png",
+        "/img/projects/p1/img7.png",
+        "/img/projects/p1/img8.png",
+        "/img/projects/p1/img9.png",
+        "/img/projects/p1/img10.png"
+      ],
       techStack: ["MERN Stack", "JWT", "Google Cloud API", "Tailwind CSS"],
       links: {
         github: "#",
@@ -47,8 +58,12 @@ export default function Projects() {
         "Implemented AI-powered automation for document verification (OCR, blur detection), geolocation-based inspection validation, optimized scheduling, and automated NOC issuance with QR-coded e-certificates.",
         "Integrated real-time monitoring & notifications with smart email/push alerts, chatbot assistance, and an employee management system to enhance efficiency and user experience."
       ],
-      image: "/placeholder-project-2.jpg",
-      techStack: ["Next.JS", "JWT", "MongoDB", "PyTorch", "Flask", "NumPy", "Pandas", "Tailwind CSS", "Google Cloud APIs"],
+      images: [
+        "/img/projects/p2/img1.png",
+        "/img/projects/p2/img2.png",
+        "/img/projects/p2/img3.png"
+      ],
+      techStack: ["Next.JS", "JWT", "MongoDB", "PyTorch", "Flask", "NumPy", "Pandas", "Tailwind CSS", "Google Cloud API"],
       links: {
         github: "#",
         live: "#"
@@ -62,7 +77,11 @@ export default function Projects() {
         "Integrated comprehensive features including monthly and annual cumulative analysis along with category-specific charts and intuitive financial data visualization, resulting in a 25% improvement in decision making.",
         "Achieved over 60% time savings for individuals managing their household finances by providing advanced search features with multiple filters for past transactions."
       ],
-      image: "/placeholder-project-3.jpg",
+      images: [
+        "/img/projects/p3/img1.png",
+        "/img/projects/p3/img2.png",
+        "/img/projects/p3/img3.png"
+      ],
       techStack: ["MERN Stack", "Redux Toolkit", "JWT"],
       links: {
         github: "#",
@@ -99,77 +118,127 @@ export default function Projects() {
   );
 
   // Modal Component
-  const ProjectModal = ({ project, onClose }) => (
-    <div 
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-      onClick={onClose}
-    >
+  const ProjectModal = ({ project, onClose }) => {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const nextImage = () => {
+      setCurrentImageIndex((prev) => 
+        prev === project.images.length - 1 ? 0 : prev + 1
+      );
+    };
+
+    const prevImage = () => {
+      setCurrentImageIndex((prev) => 
+        prev === 0 ? project.images.length - 1 : prev - 1
+      );
+    };
+
+    return (
       <div 
-        className="relative w-full max-w-4xl h-[90vh] glass-effect rounded-2xl overflow-hidden animate-slide-up"
-        onClick={e => e.stopPropagation()}
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+        onClick={onClose}
       >
-        <button 
-          onClick={onClose}
-          className="absolute right-6 top-6 p-2.5 rounded-full 
-            bg-gray-100/90 dark:bg-gray-800/90 backdrop-blur-sm
-            hover:bg-primary/20 dark:hover:bg-primary/20
-            text-gray-700 dark:text-gray-300 hover:text-primary
-            transition-all duration-300 z-10"
+        <div 
+          className="relative w-full max-w-4xl h-[90vh] glass-effect rounded-2xl overflow-hidden animate-slide-up"
+          onClick={e => e.stopPropagation()}
         >
-          <X className="w-5 h-5" />
-        </button>
+          <button 
+            onClick={onClose}
+            className="absolute right-6 top-6 p-2.5 rounded-full 
+              bg-gray-100/90 dark:bg-gray-800/90 backdrop-blur-sm
+              hover:bg-primary/20 dark:hover:bg-primary/20
+              text-gray-700 dark:text-gray-300 hover:text-primary
+              transition-all duration-300 z-10"
+          >
+            <X className="w-5 h-5" />
+          </button>
 
-        <div className="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/50 scrollbar-track-transparent hover:scrollbar-thumb-muted-foreground/70">
-          <div className="p-6 md:p-8">
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">{project.title}</h3>
-            <span className="text-sm text-primary block mb-6">{project.date}</span>
+          <div className="h-full overflow-y-auto scrollbar-thin scrollbar-thumb-muted-foreground/50 scrollbar-track-transparent hover:scrollbar-thumb-muted-foreground/70">
+            <div className="p-6 md:p-8">
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">{project.title}</h3>
+              <span className="text-sm text-primary block mb-6">{project.date}</span>
 
-            {/* Rest of the modal content remains same... */}
-            <div className="space-y-6 mb-8">
-              {project.description.map((para, i) => (
-                <p key={i} className="text-gray-700 dark:text-gray-300 leading-relaxed text-base md:text-lg">
-                  {para}
-                </p>
-              ))}
-            </div>
+              <div className="relative h-64 md:h-96 group overflow-hidden">
+                <div className="absolute inset-y-0 left-0 z-10 flex items-center">
+                  <button onClick={prevImage} className="p-2 bg-black/30 hover:bg-black/50 text-white rounded-r-lg">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                </div>
+                <div className="absolute inset-y-0 right-0 z-10 flex items-center">
+                  <button onClick={nextImage} className="p-2 bg-black/30 hover:bg-black/50 text-white rounded-l-lg">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+                <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
+                  {project.images.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentImageIndex(idx)}
+                      className={`w-2 h-2 rounded-full ${
+                        idx === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                      }`}
+                    />
+                  ))}
+                </div>
+                <Image
+                  src={project.images[currentImageIndex]}
+                  alt={project.title}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
 
-            {/* Tech Stack */}
-            <div className="mb-8">
-              <h4 className="font-medium text-primary flex items-center mb-3">
-                <Code className="h-4 w-4 mr-2" />
-                Tech Stack
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {project.techStack.map((tech, i) => (
-                  <span 
-                    key={i} 
-                    className="px-3 py-1.5 rounded-full text-xs font-medium
-                      bg-gray-600/30 text-gray-700 dark:text-gray-300 border border-gray-600/20
-                      hover:bg-primary/20 hover:text-primary
-                      transform hover:scale-105
-                      shadow-sm hover:shadow-md hover:shadow-primary/25
-                      transition-all duration-300
-                      flex items-center gap-1.5"
-                  >
-                    {techStackIcons[tech] && (
-                      <span className="text-base">{techStackIcons[tech]}</span>
-                    )}
-                    {tech}
-                  </span>
+              <div className="space-y-6 mb-8">
+                {project.description.map((para, i) => (
+                  <p key={i} className="text-gray-700 dark:text-gray-300 leading-relaxed text-base md:text-lg">
+                    {para}
+                  </p>
                 ))}
               </div>
-            </div>
 
-            {/* Links */}
-            <div className="flex gap-4">
-              <LinkButton href={project.links.github} icon={Github}>Code</LinkButton>
-              <LinkButton href={project.links.live} icon={ExternalLink} primary>Live Demo</LinkButton>
+              {/* Tech Stack */}
+              <div className="mb-8">
+                <h4 className="font-medium text-primary flex items-center mb-3">
+                  <Code className="h-4 w-4 mr-2" />
+                  Tech Stack
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {project.techStack.map((tech, i) => (
+                    <span 
+                      key={i} 
+                      className="px-3 py-1.5 rounded-full text-xs font-medium
+                        bg-gray-600/30 text-gray-700 dark:text-gray-300 border border-gray-600/20
+                        hover:bg-primary/20 hover:text-primary
+                        transform hover:scale-105
+                        shadow-sm hover:shadow-md hover:shadow-primary/25
+                        transition-all duration-300
+                        flex items-center gap-1.5"
+                    >
+                      {techStackIcons[tech] && (
+                        <span className="text-base">{techStackIcons[tech]}</span>
+                      )}
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Links */}
+              <div className="flex gap-4">
+                <LinkButton href={project.links.github} icon={Github}>Code</LinkButton>
+                <LinkButton href={project.links.live} icon={ExternalLink} primary>Live Demo</LinkButton>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <section id="projects" className="my-16 md:my-24 md:py-2 relative">
@@ -186,7 +255,7 @@ export default function Projects() {
               <div className="grid md:grid-cols-2 gap-0">
                 <div className="relative h-64 md:h-96 group overflow-hidden">
                   <Image
-                    src={project.image}
+                    src={project.images[0]}
                     alt={project.title}
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
