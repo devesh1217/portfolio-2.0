@@ -6,6 +6,7 @@ import {
 } from 'react-icons/si';
 import Image from 'next/image';
 import { useState } from 'react';
+import { generateProjectImages } from '../utils/imageUtils';
 
 export default function Projects() {
   const techStackIcons = {
@@ -32,22 +33,11 @@ export default function Projects() {
         "Built a custom registration system replicating Google Forms, with form creation, file uploads via Google Drive APIs, deadline management, and real-time response storage in Google Sheets reducing registration time by more than 70%. Also developed an Interview Experience Sharing Portal with admin verification, rich text editing, job details, Q&A with email notifications, and view counters.",
         "Developed a coding leaderboard for 500+ students across 4+ platforms, featuring batch-wise stats, optimized search, sorting, and insights. Created dynamic team pages, project showcases, and user profiles with tokanized password recovery, coding profile integration, and admin features like JWT authentication, form & project management, and achievement and alumni verification."
       ],
-      images: [
-        "/img/projects/p1/img1.png",
-        "/img/projects/p1/img2.png",
-        "/img/projects/p1/img3.png",
-        "/img/projects/p1/img4.png",
-        "/img/projects/p1/img5.png",
-        "/img/projects/p1/img6.png",
-        "/img/projects/p1/img7.png",
-        "/img/projects/p1/img8.png",
-        "/img/projects/p1/img9.png",
-        "/img/projects/p1/img10.png"
-      ],
+      images: generateProjectImages(1,10),
       techStack: ["MERN Stack", "JWT", "Google Cloud API", "Tailwind CSS"],
       links: {
-        github: "#",
-        live: "#"
+        github: "https://github.com/Nexus-SVNIT/Nexus",
+        live: "https://www.nexus-svnit.in"
       },
       date: "Feb 2025"
     },
@@ -58,11 +48,7 @@ export default function Projects() {
         "Implemented AI-powered automation for document verification (OCR, blur detection), geolocation-based inspection validation, optimized scheduling, and automated NOC issuance with QR-coded e-certificates.",
         "Integrated real-time monitoring & notifications with smart email/push alerts, chatbot assistance, and an employee management system to enhance efficiency and user experience."
       ],
-      images: [
-        "/img/projects/p2/img1.png",
-        "/img/projects/p2/img2.png",
-        "/img/projects/p2/img3.png"
-      ],
+      images: generateProjectImages(2,1),
       techStack: ["Next.JS", "JWT", "MongoDB", "PyTorch", "Flask", "NumPy", "Pandas", "Tailwind CSS", "Google Cloud API"],
       links: {
         github: "#",
@@ -77,15 +63,11 @@ export default function Projects() {
         "Integrated comprehensive features including monthly and annual cumulative analysis along with category-specific charts and intuitive financial data visualization, resulting in a 25% improvement in decision making.",
         "Achieved over 60% time savings for individuals managing their household finances by providing advanced search features with multiple filters for past transactions."
       ],
-      images: [
-        "/img/projects/p3/img1.png",
-        "/img/projects/p3/img2.png",
-        "/img/projects/p3/img3.png"
-      ],
+      images: generateProjectImages(3,3),
       techStack: ["MERN Stack", "Redux Toolkit", "JWT"],
       links: {
-        github: "#",
-        live: "#"
+        github: "https://github.com/devesh1217/MyExpenseManager",
+        live: "https://my-expense-manager-devesh1217.vercel.app/"
       },
       date: "Dec 2023"
     }

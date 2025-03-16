@@ -1,78 +1,84 @@
-import { Trophy, Link as LinkIcon, X } from 'lucide-react';
+import { Trophy, Link as LinkIcon, X, ZoomIn } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
+import { generateImages } from '../utils/imageUtils';
 
 export default function Achievements() {
   const [selectedAchievement, setSelectedAchievement] = useState(null);
+  const [fullScreenImage, setFullScreenImage] = useState(null);
 
   const achievements = [
     {
       title: "Smart India Hackathon 2024 Winner",
       organization: "Innovation Cell, MoE, GoI",
       description: "Won the prestigious Smart India Hackathon 2024, demonstrating exceptional problem-solving skills and innovation in addressing national challenges.",
-      images: [
-        "/img/projects/p4/img1.png",
-        "/img/projects/p4/img2.png",
-        "/img/projects/p4/img3.png"
-      ],
-      certificateLink: "#"
+      images: generateImages(1, 'achievements', 4),
+      certificateLink: "https://drive.google.com/file/d/1yrQdkbAK_IjnFTDYxaVsv-cji-ftoJ59/view?usp=drive_link"
     },
     {
       title: "Winner of Inception 9.O (Competitive Programming)",
       organization: "ACM, NIT Surat",
       description: "Secured first place in a rigorous competitive programming contest, showcasing algorithmic expertise and efficient problem-solving abilities.",
-      images: [
-        "/img/projects/p5/img1.png",
-        "/img/projects/p5/img2.png",
-        "/img/projects/p5/img3.png"
-      ],
+      images: generateImages(2, 'achievements', 1),
       certificateLink: null
     },
     {
       title: "Top 5 percentile in Adobe GenSolve Hackathon",
       organization: "Adobe",
       description: "Ranked in the top 5 percentile among participants in the Adobe GenSolve Hackathon, demonstrating creativity and technical excellence.",
-      images: [
-        "/img/projects/p6/img1.png",
-        "/img/projects/p6/img2.png",
-        "/img/projects/p6/img3.png"
-      ],
-      certificateLink: "#"
+      images: generateImages(3, 'achievements', 3),
+      certificateLink: "https://drive.google.com/file/d/1xS27YsiE6vk0EFJs-oWGhTyw70lJQjcX/view?usp=drive_link"
     },
     {
       title: "First Prize in Google Winter of Code",
       organization: "GDSC NIT Surat",
       description: "Awarded first prize in Google Winter of Code for developing an innovative solution that addressed real-world challenges.",
-      images: [
-        "/img/projects/p7/img1.png",
-        "/img/projects/p7/img2.png",
-        "/img/projects/p7/img3.png"
-      ],
-      certificateLink: "#"
+      images: generateImages(4, 'achievements', 2),
+      certificateLink: "https://drive.google.com/file/d/1kx29htNSo3mgUQGCn1Y4hIPkwKyQlzSl/view?usp=drive_link"
     },
     {
       title: "Gold Medal in Spoken Sanskrit Course",
       organization: "NPTEL and IIT Kharagpur",
       description: "Received a Gold Medal for excellence in the Spoken Sanskrit Course, reflecting dedication to preserving ancient knowledge.",
-      images: [
-        "/img/projects/p8/img1.png",
-        "/img/projects/p8/img2.png",
-        "/img/projects/p8/img3.png"
-      ],
-      certificateLink: "#"
+      images: generateImages(5, 'achievements', 2),
+      certificateLink: "https://drive.google.com/file/d/18nk7TIIjntaPF34-esKvAksa1jZQVMhH/view?usp=drive_link"
     },
     {
       title: "First rank at Web Wonder Competition",
       organization: "Nexus, DoCSE, NIT Surat",
       description: "Secured first place in the Web Wonder Competition, showcasing exceptional web development skills and creative design thinking.",
-      images: [
-        "/img/projects/p9/img1.png",
-        "/img/projects/p9/img2.png",
-        "/img/projects/p9/img3.png"
-      ],
-      certificateLink: "#"
+      images: generateImages(6, 'achievements', 2),
+      certificateLink: "https://drive.google.com/file/d/1JJx-uvbqt2rAy14RulYbQ2Dc37XOacj7/view?usp=drive_link"
     }
   ];
+
+  // FullScreenImage Component
+  const FullScreenImage = ({ src, onClose }) => (
+    <div 
+      className="fixed inset-0 bg-black/90 z-[60] flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <button 
+        onClick={onClose}
+        className="absolute right-6 top-6 p-2.5 rounded-full 
+          bg-gray-800/50 backdrop-blur-sm
+          hover:bg-gray-700/50
+          text-white
+          transition-all duration-300 z-10"
+      >
+        <X className="w-5 h-5" />
+      </button>
+      <div className="relative w-full h-full max-w-[90vw] max-h-[90vh]">
+        <Image
+          src={src}
+          alt="Full size image"
+          fill
+          className="object-contain"
+          quality={100}
+        />
+      </div>
+    </div>
+  );
 
   // Modal Component
   const AchievementModal = ({ achievement, onClose }) => {
@@ -117,7 +123,7 @@ export default function Achievements() {
               <span className="font-medium">{achievement.organization}</span>
             </div>
 
-            <div className="relative h-[300px] rounded-xl overflow-hidden mb-6">
+            <div className="relative h-[300px] rounded-xl overflow-hidden mb-6 group">
               <div className="absolute inset-y-0 left-0 z-10 flex items-center">
                 <button onClick={prevImage} className="p-2 bg-black/30 hover:bg-black/50 text-white rounded-r-lg">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -143,14 +149,19 @@ export default function Achievements() {
                   />
                 ))}
               </div>
-              <div className="relative w-full h-full">
-                <Image
-                  src={achievement.images[currentImageIndex]}
-                  alt={achievement.title}
-                  fill
-                  className="object-cover transition-opacity duration-300"
-                />
-              </div>
+              <button 
+                onClick={() => setFullScreenImage(achievement.images[currentImageIndex])}
+                className="absolute top-4 right-4 p-2 bg-black/30 hover:bg-black/50 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+              >
+                <ZoomIn className="w-5 h-5" />
+              </button>
+              <Image
+                src={achievement.images[currentImageIndex]}
+                alt={achievement.title}
+                fill
+                className="object-cover transition-opacity duration-300 cursor-zoom-in"
+                onClick={() => setFullScreenImage(achievement.images[currentImageIndex])}
+              />
             </div>
 
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
@@ -237,11 +248,17 @@ export default function Achievements() {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Modals */}
       {selectedAchievement && (
         <AchievementModal 
           achievement={selectedAchievement} 
           onClose={() => setSelectedAchievement(null)} 
+        />
+      )}
+      {fullScreenImage && (
+        <FullScreenImage 
+          src={fullScreenImage} 
+          onClose={() => setFullScreenImage(null)} 
         />
       )}
     </section>
