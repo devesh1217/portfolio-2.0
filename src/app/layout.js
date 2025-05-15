@@ -16,8 +16,8 @@ export const metadata = {
   metadataBase: new URL('https://devesh-mehta.vercel.app'),
   title: 'Devesh Chetan Mehta | Software Developer & NIT Surat Graduate',
   description: 'Portfolio of Devesh Mehta - A software developer and NIT Surat graduate, combining modern technology expertise with insights from ancient Sanskrit texts. Specialized in full-stack development and innovative solutions.',
-  keywords: ['Devesh Mehta', 'software developer', 'NIT Surat', 'full-stack developer', 'Sanskrit technology', 'web development', 'portfolio'],
-  authors: [{ name: 'Devesh Mehta' }],
+  keywords: ['Devesh Mehta', 'Devesh', 'devesh1217', 'Devesh Chetan Mehta', 'SVNIT', 'Sardar Vallbhbhai National Institute of Technology, Surat', 'software developer', 'NIT Surat', 'full-stack developer', 'Sanskrit technology', 'web development', 'portfolio', 'Software Engineer', 'software engineer', 'developer', 'programmer'],
+  authors: [{ name: 'Devesh Mehta', url: 'https://devesh-mehta.vercel.app' }],
   creator: 'Devesh Mehta',
   publisher: 'Devesh Mehta',
   openGraph: {
@@ -31,9 +31,6 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Devesh Mehta - Software Developer',
     creator: '@deveshmehta',
-  },
-  verification: {
-    google: 'your-google-verification-code',
   },
 };
 

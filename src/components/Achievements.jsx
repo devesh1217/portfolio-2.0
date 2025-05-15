@@ -27,7 +27,7 @@ export default function Achievements() {
       organization: "ACM, NIT Surat",
       description: "Secured first place in a rigorous competitive programming contest, showcasing algorithmic expertise and efficient problem-solving abilities.",
       images: generateImages(2, 'achievements', 1),
-      certificateLink: null
+      certificateLink: 'https://drive.google.com/file/d/1vIWURtziAcj5oI9H5VNCVdhKjcDla59o/view?usp=drive_link'
     },
     {
       title: "Top 5 percentile in Adobe GenSolve Hackathon",
