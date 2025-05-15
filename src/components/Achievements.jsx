@@ -9,6 +9,13 @@ export default function Achievements() {
 
   const achievements = [
     {
+      title: "First Runner Up in CTF SVNIT S1",
+      organization: "IEAS & NEXUS",
+      description: "Achieved 2nd place in a national-level Capture The Flag (CTF) cybersecurity competition organized by Nexus in association with ISEA. The event featured expert-led learning cohorts and intense multi-round challenges in cryptography, network security, and advanced cybersecurity. Demonstrated strong problem-solving, teamwork, and applied technical skills under pressure.",
+      images: generateImages(7, 'achievements', 4),
+      certificateLink: "https://drive.google.com/file/d/1OtWxRS0GIocMo-6o8veyTMV49k-VcDeK/view?usp=drive_link"
+    },
+    {
       title: "Smart India Hackathon 2024 Winner",
       organization: "Innovation Cell, MoE, GoI",
       description: "Won the prestigious Smart India Hackathon 2024, demonstrating exceptional problem-solving skills and innovation in addressing national challenges.",
@@ -175,6 +182,7 @@ export default function Achievements() {
                   bg-primary/10 dark:bg-primary/5 text-primary
                   hover:bg-primary hover:text-white
                   transition-all duration-300 text-sm font-medium group"
+                target="_blank"
               >
                 <Trophy className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
                 <span>View Certificate</span>
@@ -232,6 +240,7 @@ export default function Achievements() {
                   {achievement.certificateLink && (
                     <a 
                       href={achievement.certificateLink}
+                      target="_blank"
                       className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg
                         bg-primary/10 dark:bg-primary/5 text-primary
                         hover:bg-primary hover:text-white
