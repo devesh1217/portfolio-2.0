@@ -16,16 +16,6 @@ export default function Analytics() {
       });
   }, []);
 
-  const sourceNames = {
-    resume: 'Resume',
-    linkedin: 'LinkedIn',
-    github: 'GitHub',
-    old_portfolio: 'Old Portfolio',
-    direct: 'Direct Visit',
-    share: 'Shared Link',
-    other: 'Other Sources'
-  };
-
   return (
     <section className="my-16 md:my-24 md:py-2">
       <div className="container mx-auto px-4">
@@ -43,7 +33,7 @@ export default function Analytics() {
                 <div key={source} className="p-4 rounded-lg bg-gray-100/50 dark:bg-gray-800/50">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="font-medium text-gray-700 dark:text-gray-300">
-                      {sourceNames[source] || source}
+                      {source}
                     </h3>
                     <BarChart className="w-4 h-4 text-primary" />
                   </div>

@@ -4,7 +4,6 @@ const analyticsSchema = new mongoose.Schema({
     source: {
         type: String,
         required: true,
-        enum: ['resume', 'linkedin', 'github', 'old_portfolio', 'direct', 'share', 'other']
     },
     count: {
         type: Number,

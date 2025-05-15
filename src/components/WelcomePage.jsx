@@ -99,7 +99,7 @@ const WelcomePage = ({ onFinish }) => {
         const timer = setTimeout(() => {
             setShow(false);
             onFinish();
-        }, 12000); // Reduced from 100000 to 60000 for better mobile experience
+        }, 8000); // Reduced from 100000 to 60000 for better mobile experience
 
         // Progress animation
         const interval = setInterval(() => {
@@ -287,7 +287,7 @@ const WelcomePage = ({ onFinish }) => {
                                 style={{ width: `${loadingProgress}%` }}
                                 initial={{ width: "0%" }}
                                 animate={{ width: "100%" }}
-                                transition={{ duration: 12, ease: "linear" }}
+                                transition={{ duration: 8, ease: "linear" }}
                             />
                         </div>
                         <div className="flex justify-between mt-3 text-sm">

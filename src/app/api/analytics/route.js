@@ -5,13 +5,9 @@ import { NextResponse } from 'next/server';
 export async function POST(request) {
   try {
     await connectDB();
-    const { source } = await request.json();
+    const { source } = await request.json() || { source: 'direct' };
     if (!source) {
       return NextResponse.json({ success: false, error: 'Source is required' }, { status: 400 });
-    }
-    const validSources = ['resume', 'linkedin', 'github', 'old_portfolio', 'direct', 'share', 'other'];
-    if (!validSources.includes(source)) {
-      return NextResponse.json({ success: false, error: 'Invalid source' }, { status: 400 });
     }
     const existingVisit = await Analytics.findOne({ source });
     if (existingVisit) {
