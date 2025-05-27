@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { Code, Server, Database, Terminal, Globe, Cpu, FileCode, Settings, Box } from 'lucide-react';
+import { Code, Server, Database, Terminal, Globe, Cpu, FileCode, Settings, Box, Smartphone } from 'lucide-react';
 import { 
   SiJavascript, 
   SiPython, 
@@ -19,11 +19,18 @@ import {
   SiFlask, 
   SiGit, 
   SiGithub, 
-  SiVisualstudio, // Changed from SiVisualstudiocode
-  SiDocker 
+  SiVisualstudio,
+  SiDocker,
+  SiJira,
+  SiJenkins,
+  SiConfluence,
+  SiSpring,
+  SiAndroid,
+  SiKotlin,
+  SiReactquery
 } from 'react-icons/si';
 import { DiJava } from 'react-icons/di';
-import { TbBrandCpp, TbBrandVscode } from 'react-icons/tb'; // Add TbBrandVscode
+import { TbBrandCpp, TbBrandVscode, TbBrandReactNative } from 'react-icons/tb';
 
 export default function Skills() {
   const [activeTab, setActiveTab] = useState("Programming Languages");
@@ -51,17 +58,20 @@ export default function Skills() {
       ]
     },
     {
-      title: "Web Development",
+      title: "Development",
       icon: <Globe className="h-7 w-7 text-primary" />,
       skills: [
-        { name: "HTML", icon: <SiHtml5 /> },
-        { name: "CSS", icon: <SiCss3 /> },
-        { name: "React", icon: <SiReact /> },
+        { name: "React Native", icon: <TbBrandReactNative /> },
+        { name: "Android", icon: <SiAndroid /> },
         { name: "Next.js", icon: <SiNextdotjs /> },
+        { name: "React", icon: <SiReact /> },
         { name: "Node.js", icon: <SiNodedotjs /> },
         { name: "Express", icon: <SiExpress /> },
-        { name: "Tailwind", icon: <SiTailwindcss /> },
         { name: "Flask", icon: <SiFlask /> },
+        { name: "Spring", icon: <SiSpring /> },
+        { name: "Tailwind", icon: <SiTailwindcss /> },
+        { name: "HTML", icon: <SiHtml5 /> },
+        { name: "CSS", icon: <SiCss3 /> },
       ]
     },
     {
@@ -79,8 +89,11 @@ export default function Skills() {
       skills: [
         { name: "Git", icon: <SiGit /> },
         { name: "GitHub", icon: <SiGithub /> },
-        { name: "VS Code", icon: <TbBrandVscode /> }, // Use TbBrandVscode instead
+        { name: "VS Code", icon: <TbBrandVscode /> },
         { name: "Docker", icon: <SiDocker /> },
+        { name: "Jira", icon: <SiJira /> },
+        { name: "Jenkins", icon: <SiJenkins /> },
+        { name: "Confluence", icon: <SiConfluence /> },
       ]
     },
     {
