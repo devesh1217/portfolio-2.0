@@ -1,8 +1,9 @@
-import { Github, ExternalLink, Code, X } from 'lucide-react';
+import { Github, ExternalLink, Code, X, Smartphone, Globe, ZoomIn } from 'lucide-react';
 import { 
   SiJavascript, SiReact, SiNodedotjs, SiMongodb, SiExpress, 
   SiNextdotjs, SiTailwindcss, SiPython, SiFlask, SiGooglecloud,
-  SiJsonwebtokens, SiRedux, SiPytorch, SiNumpy, SiPandas
+  SiJsonwebtokens, SiRedux, SiPytorch, SiNumpy, SiPandas,
+  SiSqlite
 } from 'react-icons/si';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -20,12 +21,62 @@ export default function Projects() {
     "Flask": <SiFlask className="text-gray-700 dark:text-gray-300" />,
     "NumPy": <SiNumpy className="text-gray-700 dark:text-gray-300" />,
     "Pandas": <SiPandas className="text-gray-700 dark:text-gray-300" />,
-    "Redux Toolkit": <SiRedux className="text-gray-700 dark:text-gray-300" />
+    "Redux Toolkit": <SiRedux className="text-gray-700 dark:text-gray-300" />,
+    "React Native": <SiReact className="text-gray-700 dark:text-gray-300" />,
+    "SQLite": <SiSqlite className="text-gray-700 dark:text-gray-300" />,
+    "Node.js": <SiNodedotjs className="text-gray-700 dark:text-gray-300" />,
+    "Express.js": <SiExpress className="text-gray-700 dark:text-gray-300" />
   };
 
   const [selectedProject, setSelectedProject] = useState(null);
+  const [fullScreenImage, setFullScreenImage] = useState(null);
   
   const projects = [
+    {
+      title: "MDM Attendance System",
+      description: [
+        "Developed a mobile application to simplify and digitize attendance tracking for school meal programs, eliminating manual paperwork and reducing administrative burden for government-sponsored meal schemes.",
+        "Created separate interfaces for principals and teachers with capabilities to register students, mark daily attendance, and generate comprehensive reports. Teachers can efficiently track meal participation while principals manage staff and access detailed analytics.",
+        "Implemented biometric authentication for security, offline data storage for reliability, and automated Excel report generation for easy data sharing with education departments and government agencies."
+      ],
+      images: generateProjectImages(4,1),
+      techStack: ["React Native", "Node.js", "Express.js", "MongoDB", "JWT"],
+      links: {
+        github: "#",
+        app: "#"
+      },
+      date: "June 2025"
+    },
+    {
+      title: "My Expense Manager",
+      description: [
+        "Built a comprehensive personal finance tracking mobile application with React Native, providing powerful tools for expense and income management, detailed analytics, and insightful reporting for effective financial decision-making.",
+        "Implemented multiple account support (Cash, Bank, UPI), customizable categories, advanced filtering capabilities, and intuitive swipe gestures for navigation. Features comprehensive monthly and yearly overviews with visual charts and graphs.",
+        "Integrated robust data management with Excel export, automatic daily backups, offline functionality, and advanced search options. Includes customizable themes and detailed visualization through interactive charts for complete financial management."
+      ],
+      images: generateProjectImages(5,3),
+      techStack: ["React Native", "Redux Toolkit", "SQLite"],
+      links: {
+        github: "https://github.com/devesh1217/ExpenseManger-Mobile-App",
+        app: "#"
+      },
+      date: "April 2025"
+    },
+    {
+      title: "Samyukt Portal - E-Governance Solution",
+      description: [
+        "Developed a unified E-Governance solution for DotSlash 8.0 hackathon to revolutionize how Indian citizens interact with government services, eliminating redundant document uploads across different platforms.",
+        "Implemented a centralized gateway where users can access and verify documents directly from national databases with a single click, complementing existing Bottom-Up initiatives with a Top-Down approach.",
+        "Created a faster, more transparent, and citizen-friendly experience for government service interactions, reducing manual verification processes and potential corruption in public service delivery."
+      ],
+      images: generateProjectImages(6,9),
+      techStack: ["Next.JS", "Tailwind CSS"],
+      links: {
+        github: "https://github.com/devesh1217/SamyuktPortal-One-Nation-One-Portal",
+        website: "#"
+      },
+      date: "Feb 2025"
+    },
     {
       title: "Web Portal of NEXUS: Official Departmental Cell of DoCSE and DoAI",
       description: [
@@ -72,6 +123,34 @@ export default function Projects() {
       date: "Dec 2023"
     }
   ];
+
+  // FullScreenImage Component
+  const FullScreenImage = ({ src, onClose }) => (
+    <div 
+      className="fixed inset-0 bg-black/90 z-[60] flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <button 
+        onClick={onClose}
+        className="absolute right-6 top-6 p-2.5 rounded-full 
+          bg-gray-800/50 backdrop-blur-sm
+          hover:bg-gray-700/50
+          text-white
+          transition-all duration-300 z-10 cursor-pointer"
+      >
+        <X className="w-5 h-5" />
+      </button>
+      <div className="relative w-full h-full max-w-[90vw] max-h-[90vh]">
+        <Image
+          src={src}
+          alt="Full size image"
+          fill
+          className="object-contain"
+          quality={100}
+        />
+      </div>
+    </div>
+  );
 
   const LinkButton = ({ href, icon: Icon, children, primary = false }) => (
     <a
@@ -130,7 +209,7 @@ export default function Projects() {
               bg-gray-100/90 dark:bg-gray-800/90 backdrop-blur-sm
               hover:bg-primary/20 dark:hover:bg-primary/20
               text-gray-700 dark:text-gray-300 hover:text-primary
-              transition-all duration-300 z-10"
+              transition-all duration-300 z-10 cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -140,7 +219,7 @@ export default function Projects() {
               <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">{project.title}</h3>
               <span className="text-sm text-primary block mb-6">{project.date}</span>
 
-              <div className="relative h-64 md:h-96 group overflow-hidden">
+              <div className="relative h-64 md:h-96 group overflow-hidden rounded-xl">
                 <div className="absolute inset-y-0 left-0 z-10 flex items-center">
                   <button onClick={prevImage} className="p-2 bg-black/30 hover:bg-black/50 text-white rounded-r-lg">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,11 +245,18 @@ export default function Projects() {
                     />
                   ))}
                 </div>
+                <button 
+                  onClick={() => setFullScreenImage(project.images[currentImageIndex])}
+                  className="absolute top-4 right-4 p-2 bg-black/30 hover:bg-black/50 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+                >
+                  <ZoomIn className="w-5 h-5 cursor-pointer" />
+                </button>
                 <Image
                   src={project.images[currentImageIndex]}
                   alt={project.title}
                   fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="object-cover transition-opacity duration-300 cursor-zoom-in"
+                  onClick={() => setFullScreenImage(project.images[currentImageIndex])}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
@@ -212,8 +298,18 @@ export default function Projects() {
 
               {/* Links */}
               <div className="flex gap-4">
-                <LinkButton href={project.links.github} icon={Github}>Code</LinkButton>
-                <LinkButton href={project.links.live} icon={ExternalLink} primary>Live Demo</LinkButton>
+                {project.links.github && project.links.github !== "#" && (
+                  <LinkButton href={project.links.github} icon={Github}>Code</LinkButton>
+                )}
+                {project.links.live && project.links.live !== "#" && (
+                  <LinkButton href={project.links.live} icon={Globe} primary>Website</LinkButton>
+                )}
+                {project.links.website && project.links.website !== "#" && (
+                  <LinkButton href={project.links.website} icon={Globe} primary>Website</LinkButton>
+                )}
+                {project.links.app && project.links.app !== "#" && (
+                  <LinkButton href={project.links.app} icon={Smartphone} primary>App</LinkButton>
+                )}
               </div>
             </div>
           </div>
@@ -257,7 +353,7 @@ export default function Projects() {
                     </p>
                     <button
                       onClick={() => setSelectedProject(project)}
-                      className="mt-2 text-primary hover:text-primary/80 font-medium text-sm flex items-center gap-1 group"
+                      className="mt-2 text-primary hover:text-primary/80 font-medium text-sm flex items-center gap-1 group cursor-pointer"
                     >
                       Show More
                       <span className="transform transition-transform group-hover:translate-x-1">→</span>
@@ -291,8 +387,18 @@ export default function Projects() {
                   </div>
                   
                   <div className="mt-8 flex gap-4">
-                    <LinkButton href={project.links.github} icon={Github}>Code</LinkButton>
-                    <LinkButton href={project.links.live} icon={ExternalLink} primary>Live Demo</LinkButton>
+                    {project.links.github && project.links.github !== "#" && (
+                      <LinkButton href={project.links.github} icon={Github}>Code</LinkButton>
+                    )}
+                    {project.links.live && project.links.live !== "#" && (
+                      <LinkButton href={project.links.live} icon={Globe} primary>Website</LinkButton>
+                    )}
+                    {project.links.website && project.links.website !== "#" && (
+                      <LinkButton href={project.links.website} icon={Globe} primary>Website</LinkButton>
+                    )}
+                    {project.links.app && project.links.app !== "#" && (
+                      <LinkButton href={project.links.app} icon={Smartphone} primary>App</LinkButton>
+                    )}
                   </div>
                 </div>
               </div>
@@ -301,11 +407,17 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Modals */}
       {selectedProject && (
         <ProjectModal 
           project={selectedProject} 
           onClose={() => setSelectedProject(null)} 
+        />
+      )}
+      {fullScreenImage && (
+        <FullScreenImage 
+          src={fullScreenImage} 
+          onClose={() => setFullScreenImage(null)} 
         />
       )}
     </section>
