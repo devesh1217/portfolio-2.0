@@ -8,7 +8,7 @@ export default function Education() {
       institute: "NIT Surat",
       longInstitute: "National Institute of Technology, Surat",
       year: "2022-Present",
-      grade: "CGPA: 9.17"
+      grade: "CGPA: 9.21"
     },
     {
       degree: "Higher Secondary",

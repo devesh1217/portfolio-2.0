@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { Code, Server, Database, Terminal, Globe, Cpu, FileCode, Settings, Box, Smartphone } from 'lucide-react';
+import { Code, Server, Database, Terminal, Globe, Cpu, FileCode, Settings, Box, Smartphone, Layout, Layers } from 'lucide-react';
 import { 
   SiJavascript, 
   SiPython, 
@@ -23,17 +23,19 @@ import {
   SiDocker,
   SiJira,
   SiJenkins,
-  SiConfluence,
   SiSpring,
   SiAndroid,
-  SiKotlin,
-  SiReactquery
+  SiLinux,
+  SiRedis,
+  SiNumpy,
+  SiPandas,
+  SiScikitlearn
 } from 'react-icons/si';
 import { DiJava } from 'react-icons/di';
 import { TbBrandCpp, TbBrandVscode, TbBrandReactNative } from 'react-icons/tb';
 
 export default function Skills() {
-  const [activeTab, setActiveTab] = useState("Programming Languages");
+  const [activeTab, setActiveTab] = useState("Overview");
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -48,30 +50,69 @@ export default function Skills() {
 
   const skillCategories = [
     {
+      title: "Overview",
+      icon: <Layout className="h-7 w-7 text-primary" />,
+      skills: [
+        { name: "Web Development", icon: <Globe /> },
+        { name: "Android Development", icon: <Smartphone /> },
+        { name: "Backend Development", icon: <Server /> },
+        { name: "System Design", icon: <Layers /> },
+        { name: "Machine Learning", icon: <Cpu /> },
+        { name: "Database Design", icon: <Database /> },
+        { name: "DevOps & CI/CD", icon: <Settings /> },
+        { name: "API Development", icon: <Code /> },
+      ]
+    },
+    {
       title: "Programming Languages",
       icon: <Code className="h-7 w-7 text-primary" />,
       skills: [
+        { name: "Java", icon: <DiJava /> },
         { name: "JavaScript", icon: <SiJavascript /> },
         { name: "Python", icon: <SiPython /> },
-        { name: "Java", icon: <DiJava /> },
-        { name: "C/C++", icon: <TbBrandCpp /> },
+        { name: "C", icon: <SiC /> },
+        { name: "SQL", icon: <Database /> },
       ]
     },
     {
       title: "Development",
       icon: <Globe className="h-7 w-7 text-primary" />,
       skills: [
-        { name: "React Native", icon: <TbBrandReactNative /> },
-        { name: "Android", icon: <SiAndroid /> },
-        { name: "Next.js", icon: <SiNextdotjs /> },
-        { name: "React", icon: <SiReact /> },
-        { name: "Node.js", icon: <SiNodedotjs /> },
-        { name: "Express", icon: <SiExpress /> },
-        { name: "Flask", icon: <SiFlask /> },
-        { name: "Spring", icon: <SiSpring /> },
-        { name: "Tailwind", icon: <SiTailwindcss /> },
         { name: "HTML", icon: <SiHtml5 /> },
         { name: "CSS", icon: <SiCss3 /> },
+        { name: "Tailwind CSS", icon: <SiTailwindcss /> },
+        { name: "React", icon: <SiReact /> },
+        { name: "Node.js", icon: <SiNodedotjs /> },
+        { name: "Express.js", icon: <SiExpress /> },
+        { name: "Next.js", icon: <SiNextdotjs /> },
+        { name: "Flask", icon: <SiFlask /> },
+        { name: "React Native", icon: <TbBrandReactNative /> },
+        { name: "Android", icon: <SiAndroid /> },
+        { name: "Spring Boot", icon: <SiSpring /> },
+      ]
+    },
+    {
+      title: "Machine Learning",
+      icon: <Cpu className="h-7 w-7 text-primary" />,
+      skills: [
+        { name: "NumPy", icon: <SiNumpy /> },
+        { name: "Pandas", icon: <SiPandas /> },
+        { name: "Scikit-Learn", icon: <SiScikitlearn /> },
+        { name: "Feature Engineering", icon: <Settings /> },
+      ]
+    },
+    {
+      title: "Tools & Technologies",
+      icon: <Terminal className="h-7 w-7 text-primary" />,
+      skills: [
+        { name: "Git", icon: <SiGit /> },
+        { name: "GitHub", icon: <SiGithub /> },
+        { name: "VS Code", icon: <TbBrandVscode /> },
+        { name: "Docker", icon: <SiDocker /> },
+        { name: "Jenkins", icon: <SiJenkins /> },
+        { name: "Jira", icon: <SiJira /> },
+        { name: "Redis", icon: <SiRedis /> },
+        { name: "Linux", icon: <SiLinux /> },
       ]
     },
     {
@@ -84,26 +125,14 @@ export default function Skills() {
       ]
     },
     {
-      title: "Tools & Technologies",
-      icon: <Terminal className="h-7 w-7 text-primary" />,
+      title: "Coursework",
+      icon: <FileCode className="h-7 w-7 text-primary" />,
       skills: [
-        { name: "Git", icon: <SiGit /> },
-        { name: "GitHub", icon: <SiGithub /> },
-        { name: "VS Code", icon: <TbBrandVscode /> },
-        { name: "Docker", icon: <SiDocker /> },
-        { name: "Jira", icon: <SiJira /> },
-        { name: "Jenkins", icon: <SiJenkins /> },
-        { name: "Confluence", icon: <SiConfluence /> },
-      ]
-    },
-    {
-      title: "Core CS",
-      icon: <Cpu className="h-7 w-7 text-primary" />,
-      skills: [
-        { name: "DSA", icon: <Box /> },
-        { name: "DBMS", icon: <Database /> },
-        { name: "OS", icon: <Settings /> },
-        { name: "Networks", icon: <Globe /> },
+        { name: "Data Structures", icon: <Box /> },
+        { name: "Algorithms", icon: <Settings /> },
+        { name: "Database Systems", icon: <Database /> },
+        { name: "Operating Systems", icon: <Settings /> },
+        { name: "Computer Networks", icon: <Globe /> },
         { name: "OOP", icon: <FileCode /> },
       ]
     }

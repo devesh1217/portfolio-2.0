@@ -6,36 +6,55 @@ export default function Experience() {
 
   const experiences = [
     {
+      title: "QE Intern",
+      organization: "Piramal Finance",
+      period: "May 2025",
+      description: [
+        "Built and optimized **backend dashboard APIs** using **Spring Boot** and **MongoDB** for an AI-powered API testing automation tool, enabling real-time analytics and efficient workspace and suite-level data aggregation. Enhanced performance through **indexing, API decomposition, and caching strategies**.",
+        "Developed a **secure authentication client library** with support for both **SSO and external users** using **JWT** and **Redis**, enabling seamless login/signup flows and integration with **SendGrid** for email services.",
+        "Implemented intelligent features like **flaky test detection** and **test suite merging** using **asynchronous cron jobs**, contributing to automation reliability. Utilized tools such as **Docker**, **Linux**, **Jenkins**, and **GitHub** for deployment, local development, and CI/CD pipelines."
+      ],
+      technologies: ["Linux", "Java", "Spring Boot", "MongoDB", "Redis", "Docker", "Jenkins", "n8n"]
+    },
+    {
       title: "Event Manager & Student Coordinator",
       organization: "Nexus Cell, NIT, Surat",
-      period: "Jul 2024 - Present",
-      description: "Organized and executed events by managing logistics, coordinating teams, securing approvals, and ensuring successful delivery, contributing to the overall growth of the CSE and AI departments."
+      period: "Jul 2024 - Jul 2025",
+      description: [
+        "Organized and executed **10+ events** by managing logistics, coordinating teams, securing approvals, and ensuring successful delivery, contributing to the overall growth of the **CSE and AI departments**."
+      ]
     },
     {
       title: "Executive",
       organization: "ACM NIT, Surat",
-      period: "Sept 2023 - Present",
-      description: "Led events, managed administration, fostered collaborations and drove member engagement and strategic growth."
+      period: "Sept 2023 - Jul 2024",
+      description: [
+        "Led events, managed administration, fostered collaborations and drove **member engagement and strategic growth**."
+      ]
     }
   ];
+
+  const formatText = (text) => {
+    return text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-primary font-semibold">$1</strong>');
+  };
 
   const Modal = ({ exp, onClose }) => (
     <div 
       className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-      onClick={onClose} // Close on backdrop click
+      onClick={onClose}
     >
       <div 
-        className="relative w-full max-w-2xl glass-effect rounded-2xl p-6 md:p-8 animate-slide-up"
-        onClick={e => e.stopPropagation()} // Prevent closing when clicking modal content
+        className="relative w-full max-w-3xl glass-effect rounded-2xl p-6 md:p-8 animate-slide-up max-h-[90vh] overflow-y-auto"
+        onClick={e => e.stopPropagation()}
       >
         <button 
           onClick={onClose}
-          className="absolute right-4 top-4 p-2 rounded-full hover:bg-gray-200/20 transition-colors hover:rotate-90 duration-300"
+          className="absolute right-4 top-4 p-2 rounded-full hover:bg-gray-200/20 transition-colors hover:rotate-90 duration-300 cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
 
-        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">{exp.title}</h3>
+        <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">{exp.title}</h3>
         
         <div className="flex items-center gap-3 mb-4">
           <div className="p-2 rounded-lg bg-primary/10 dark:bg-primary/5">
@@ -44,15 +63,37 @@ export default function Experience() {
           <p className="text-primary dark:text-primary/90 font-medium">{exp.organization}</p>
         </div>
         
-        <div className="flex items-center text-gray-600 dark:text-gray-400 mb-4 bg-gray-100/50 dark:bg-gray-800/50 rounded-lg px-3 py-1.5 w-fit">
+        <div className="flex items-center text-gray-600 dark:text-gray-400 mb-6 bg-gray-100/50 dark:bg-gray-800/50 rounded-lg px-3 py-1.5 w-fit">
           <Calendar className="h-4 w-4 mr-2 text-primary" />
           <span className="text-sm">{exp.period}</span>
         </div>
+
+        {exp.technologies && (
+          <div className="mb-6">
+            <h4 className="text-sm font-semibold text-primary mb-2">Technologies:</h4>
+            <div className="flex flex-wrap gap-2">
+              {exp.technologies.map((tech, index) => (
+                <span 
+                  key={index}
+                  className="px-2 py-1 text-xs bg-primary/10 text-primary rounded-md font-medium"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
         
-        <div className="mt-6 prose prose-gray dark:prose-invert max-w-none">
-          <p className="text-gray-700 dark:text-gray-300 text-base leading-relaxed">
-            {exp.description}
-          </p>
+        <div className="space-y-4">
+          {exp.description.map((point, index) => (
+            <div key={index} className="flex items-start gap-3">
+              <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+              <p 
+                className="text-gray-700 dark:text-gray-300 text-base leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: formatText(point) }}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -93,11 +134,13 @@ export default function Experience() {
                       <span className="text-sm">{exp.period}</span>
                     </div>
                     
-                    <p className="text-gray-700 dark:text-gray-300 text-sm md:text-base leading-relaxed">
-                      {exp.description.slice(0, 100)}...
+                    <div className="text-gray-700 dark:text-gray-300 text-sm md:text-base leading-relaxed">
+                      <p className="mb-2">
+                        {exp.description[0].replace(/\*\*(.*?)\*\*/g, '$1').slice(0, 120)}...
+                      </p>
                       <button
                         onClick={() => setSelectedExp(exp)}
-                        className="inline-flex items-center gap-1 ml-2 px-3 py-1 rounded-full text-primary hover:text-white bg-primary/10 hover:bg-primary dark:bg-primary/5 dark:hover:bg-primary transition-all duration-300 text-sm font-medium group hover:cursor-pointer"
+                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-primary hover:text-white bg-primary/10 hover:bg-primary dark:bg-primary/5 dark:hover:bg-primary transition-all duration-300 text-sm font-medium group hover:cursor-pointer"
                       >
                         Read More
                         <svg 
@@ -114,7 +157,7 @@ export default function Experience() {
                           />
                         </svg>
                       </button>
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
