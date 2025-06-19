@@ -118,7 +118,7 @@ export default function Achievements() {
               bg-gray-100/90 dark:bg-gray-800/90 backdrop-blur-sm
               hover:bg-primary/20 dark:hover:bg-primary/20
               text-gray-700 dark:text-gray-300 hover:text-primary
-              transition-all duration-300 z-10"
+              transition-all duration-300 z-10 cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -132,14 +132,14 @@ export default function Achievements() {
 
             <div className="relative h-[300px] rounded-xl overflow-hidden mb-6 group">
               <div className="absolute inset-y-0 left-0 z-10 flex items-center">
-                <button onClick={prevImage} className="p-2 bg-black/30 hover:bg-black/50 text-white rounded-r-lg">
+                <button onClick={prevImage} className="p-2 bg-black/30 hover:bg-black/50 text-white rounded-r-lg cursor-pointer">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
               </div>
               <div className="absolute inset-y-0 right-0 z-10 flex items-center">
-                <button onClick={nextImage} className="p-2 bg-black/30 hover:bg-black/50 text-white rounded-l-lg">
+                <button onClick={nextImage} className="p-2 bg-black/30 hover:bg-black/50 text-white rounded-l-lg cursor-pointer">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -150,7 +150,7 @@ export default function Achievements() {
                   <button
                     key={idx}
                     onClick={() => setCurrentImageIndex(idx)}
-                    className={`w-2 h-2 rounded-full ${
+                    className={`w-2 h-2 rounded-full cursor-pointer ${
                       idx === currentImageIndex ? 'bg-white' : 'bg-white/50'
                     }`}
                   />
@@ -158,7 +158,7 @@ export default function Achievements() {
               </div>
               <button 
                 onClick={() => setFullScreenImage(achievement.images[currentImageIndex])}
-                className="absolute top-4 right-4 p-2 bg-black/30 hover:bg-black/50 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+                className="absolute top-4 right-4 p-2 bg-black/30 hover:bg-black/50 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 cursor-pointer"
               >
                 <ZoomIn className="w-5 h-5" />
               </button>
@@ -213,18 +213,15 @@ export default function Achievements() {
                   fill
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent opacity-90"></div>
-                <div className="absolute inset-0 p-6 flex flex-col justify-end">
-                  <h3 className="text-white font-bold text-lg mb-1 line-clamp-2">{achievement.title}</h3>
-                  <p className="text-blue-300 text-sm flex items-center gap-1">
-                    <Trophy className="h-4 w-4" />
-                    {achievement.organization}
-                  </p>
-                </div>
               </div>
               
               <div className="p-6">
-                <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
+                <h3 className="text-gray-900 dark:text-gray-100 font-bold text-lg mb-2 line-clamp-1 select-text">{achievement.title}</h3>
+                <div className="text-blue-500 dark:text-blue-400 text-sm flex items-center gap-1 mb-3 select-text">
+                  <Trophy className="h-4 w-4" />
+                  {achievement.organization}
+                </div>
+                <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed line-clamp-2 select-text">
                   {achievement.description}
                 </p>
                 

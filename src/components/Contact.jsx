@@ -248,7 +248,7 @@ export default function Contact() {
               </h3>
               <div className="rounded-lg overflow-hidden bg-white hover:scale-[1.02] transition-transform">
                 <iframe
-                  src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7276140592730980352"
+                  src="https://www.linkedin.com/embed/feed/update/urn:li:activity:7332624036520165376"
                   height="250"
                   width="100%"
                   frameBorder="0"
